@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion des Wakf · Islamic Shariah Validator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        :root {
+            --primary: #1a3a3a;
+            --primary-light: #2a5a5a;
+            --accent: #c9a86c;
+            --accent-light: #e8d5b0;
+            --bg-light: #f8f6f1;
+            --bg-white: #ffffff;
+            --text-dark: #1e2a2a;
+            --text-muted: #5a6a6a;
+            --border-color: #dce4e4;
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            --radius: 16px;
+            --transition: 0.25s ease;
+            --success: #1a7a3a;
+            --danger: #b33a3a;
+            --warning: #b8860b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Header */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0 2rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .logo h1 i {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+        .logo span {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: block;
+            margin-top: 0.1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .header-actions a {
+            text-decoration: none;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .header-actions a:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        /* Messages */
+        .msg {
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-weight: 500;
+        }
+        .msg.success { background: #e1f5e8; color: var(--success); display: block; }
+        .msg.error { background: #fde8e8; color: var(--danger); display: block; }
+        .msg.info { background: #e3edfa; color: #1a4a7a; display: block; }
+
+        /* Cards */
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .card .sub {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent);
+        }
+        .stat-card .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-card .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Formulaires */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        .form-group .hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 700px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.2);
+        }
+
+        select.form-control { appearance: auto; }
+
+        /* Tableau */
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        tr:hover td { background: #faf8f5; }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .badge.active { background: #e1f5e8; color: var(--success); }
+        .badge.inactive { background: #fde8e8; color: var(--danger); }
+        .badge.pending { background: #fff3d6; color: var(--warning); }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(26, 58, 58, 0.2);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-light);
+            box-shadow: var(--shadow);
+            transform: none;
+        }
+        .btn-success {
+            background: var(--success);
+        }
+        .btn-success:hover {
+            background: #146a30;
+        }
+        .btn-danger {
+            background: var(--danger);
+        }
+        .btn-danger:hover {
+            background: #8a2a2a;
+        }
+        .btn-sm {
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            align-items: center;
+        }
+        .action-bar .spacer { flex: 1; }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .footer {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .footer a {
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px dotted transparent;
+        }
+        .footer a:hover { border-bottom-color: var(--accent); }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal h2 { margin-bottom: 1.5rem; }
+        .modal .close {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .modal .close:hover { color: var(--text-dark); }
+
+        @media (max-width: 700px) {
+            .card { padding: 1.5rem; }
+            .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .header-actions { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <h1><i class="fas fa-hand-holding-heart"></i>Gestion des Wakf</h1>
+            <span>Administration · Islamic Shariah Validator</span>
+        </div>
+        <div class="header-actions">
+            <a href="../admin.html"><i class="fas fa-arrow-left"></i> Retour</a>
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+        </div>
+    </header>
+
+    <!-- MESSAGES -->
+    <div id="msg" class="msg"></div>
+
+    <!-- STATISTIQUES -->
+    <div class="card-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="totalWakf">0</div>
+            <div class="stat-label"><i class="fas fa-archway"></i> Wakf actifs</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="totalAssets">0</div>
+            <div class="stat-label"><i class="fas fa-coins"></i> Actifs gérés</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="totalBeneficiaries">0</div>
+            <div class="stat-label"><i class="fas fa-users"></i> Bénéficiaires</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="totalRevenue">0</div>
+            <div class="stat-label"><i class="fas fa-chart-line"></i> Revenus (USD)</div>
+        </div>
+    </div>
+
+    <!-- LISTE DES WAKF -->
+    <div class="card">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <h2><i class="fas fa-list" style="color:var(--accent);"></i> Wakf enregistrés</h2>
+            <button class="btn btn-success btn-sm" id="openCreateModal"><i class="fas fa-plus"></i> Nouveau Wakf</button>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Type</th>
+                        <th>Actifs</th>
+                        <th>Bénéficiaires</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="wakfTableBody">
+                    <!-- Rempli par JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- DÉTAILS D'UN WAKF (affiché en dessous) -->
+    <div class="card" id="detailCard" style="display:none;">
+        <h2 id="detailTitle"><i class="fas fa-info-circle" style="color:var(--accent);"></i> Détails</h2>
+        <div id="detailContent"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        &copy; 2026 <a href="mailto:abdelhakimzouai@gmail.com">AbdElHakim ZOUAÏ</a> &middot; Licence <strong>DWPL‑2.0</strong>
+    </footer>
+</div>
+
+<!-- ============================================================
+     MODAL : Création / Édition d'un Wakf
+     ============================================================ -->
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <span class="close" id="modalClose">&times;</span>
+        <h2 id="modalTitle">Nouveau Wakf</h2>
+        <form id="wakfForm">
+            <input type="hidden" id="editId" value="" />
+
+            <div class="form-group">
+                <label>Nom du Wakf</label>
+                <input type="text" id="wakfName" class="form-control" placeholder="Ex: Wakf Al‑Maidah" required />
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <select id="wakfType" class="form-control">
+                    <option value="Charitable">Charitable</option>
+                    <option value="Family">Famille</option>
+                    <option value="Investment">Investissement</option>
+                    <option value="Mixed">Mixte</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Valeur totale (USD)</label>
+                    <input type="number" id="wakfValue" class="form-control" step="0.01" value="0" />
+                </div>
+                <div class="form-group">
+                    <label>Revenu annuel (USD)</label>
+                    <input type="number" id="wakfRevenue" class="form-control" step="0.01" value="0" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Bénéficiaires <span class="hint">(séparés par des virgules)</span></label>
+                <input type="text" id="wakfBeneficiaries" class="form-control" placeholder="Ex: Orphelinat, Hôpital, Mosquée" />
+            </div>
+
+            <div class="form-group">
+                <label>Actifs <span class="hint">(séparés par des virgules)</span></label>
+                <input type="text" id="wakfAssets" class="form-control" placeholder="Ex: Immeuble 12, Terrain A, Actions" />
+            </div>
+
+            <div class="form-group">
+                <label>Statut</label>
+                <select id="wakfStatus" class="form-control">
+                    <option value="active">Actif</option>
+                    <option value="inactive">Inactif</option>
+                    <option value="pending">En attente</option>
+                </select>
+            </div>
+
+            <div class="action-bar" style="border-top:none; padding-top:0; margin-top:1rem;">
+                <button type="submit" class="btn" id="modalSaveBtn"><i class="fas fa-save"></i> Enregistrer</button>
+                <button type="button" class="btn btn-secondary" id="modalCancelBtn">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT – Logique de gestion des Wakf
+     ============================================================ -->
+<script>
+    (function() {
+        'use strict';
+
+        // ------------------------------------------------------------------
+        // 1. Données simulées (API)
+        // ------------------------------------------------------------------
+        let wakfData = [
+            { id: 'w1', name: 'Wakf Al‑Maidah', type: 'Charitable', value: 150000, revenue: 12000, beneficiaries: ['Orphelinat', 'Mosquée'], assets: ['Immeuble 12', 'Actions'], status: 'active' },
+            { id: 'w2', name: 'Wakf de la Famille ZOUAÏ', type: 'Family', value: 75000, revenue: 5000, beneficiaries: ['Descendants'], assets: ['Terrain A', 'Épargne'], status: 'active' },
+            { id: 'w3', name: 'Wakf Investissement Halal', type: 'Investment', value: 300000, revenue: 25000, beneficiaries: ['Projets communautaires'], assets: ['Portefeuille actions', 'Immobilier'], status: 'pending' },
+        ];
+
+        let nextId = 'w4';
+
+        // ------------------------------------------------------------------
+        // 2. Références DOM
+        // ------------------------------------------------------------------
+        const msgEl = document.getElementById('msg');
+        const wakfTableBody = document.getElementById('wakfTableBody');
+        const totalWakf = document.getElementById('totalWakf');
+        const totalAssets = document.getElementById('totalAssets');
+        const totalBeneficiaries = document.getElementById('totalBeneficiaries');
+        const totalRevenue = document.getElementById('totalRevenue');
+        const detailCard = document.getElementById('detailCard');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailContent = document.getElementById('detailContent');
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalClose = document.getElementById('modalClose');
+        const modalCancelBtn = document.getElementById('modalCancelBtn');
+        const modalSaveBtn = document.getElementById('modalSaveBtn');
+        const wakfForm = document.getElementById('wakfForm');
+        const editId = document.getElementById('editId');
+        const wakfName = document.getElementById('wakfName');
+        const wakfType = document.getElementById('wakfType');
+        const wakfValue = document.getElementById('wakfValue');
+        const wakfRevenue = document.getElementById('wakfRevenue');
+        const wakfBeneficiaries = document.getElementById('wakfBeneficiaries');
+        const wakfAssets = document.getElementById('wakfAssets');
+        const wakfStatus = document.getElementById('wakfStatus');
+        const openCreateBtn = document.getElementById('openCreateModal');
+
+        // ------------------------------------------------------------------
+        // 3. Fonctions d'affichage
+        // ------------------------------------------------------------------
+        function renderStats() {
+            const total = wakfData.length;
+            const assetsSet = new Set();
+            const beneficiariesSet = new Set();
+            let revenue = 0;
+            wakfData.forEach(w => {
+                w.assets.forEach(a => assetsSet.add(a));
+                w.beneficiaries.forEach(b => beneficiariesSet.add(b));
+                revenue += w.revenue;
+            });
+            totalWakf.textContent = total;
+            totalAssets.textContent = assetsSet.size;
+            totalBeneficiaries.textContent = beneficiariesSet.size;
+            totalRevenue.textContent = revenue.toLocaleString();
+        }
+
+        function renderTable() {
+            wakfTableBody.innerHTML = '';
+            wakfData.forEach(w => {
+                const tr = document.createElement('tr');
+                const statusBadge = `<span class="badge ${w.status}">${w.status}</span>`;
+                tr.innerHTML = `
+                    <td><strong>${w.name}</strong></td>
+                    <td>${w.type}</td>
+                    <td>${w.assets.length}</td>
+                    <td>${w.beneficiaries.length}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm viewBtn" data-id="${w.id}"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-secondary btn-sm editBtn" data-id="${w.id}"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm deleteBtn" data-id="${w.id}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                wakfTableBody.appendChild(tr);
+            });
+
+            // Événements sur les boutons
+            document.querySelectorAll('.viewBtn').forEach(btn => {
+                btn.addEventListener('click', () => showDetail(btn.dataset.id));
+            });
+            document.querySelectorAll('.editBtn').forEach(btn => {
+                btn.addEventListener('click', () => openEditModal(btn.dataset.id));
+            });
+            document.querySelectorAll('.deleteBtn').forEach(btn => {
+                btn.addEventListener('click', () => deleteWakf(btn.dataset.id));
+            });
+        }
+
+        function renderAll() {
+            renderStats();
+            renderTable();
+        }
+
+        // ------------------------------------------------------------------
+        // 4. Détails d'un Wakf
+        // ------------------------------------------------------------------
+        function showDetail(id) {
+            const w = wakfData.find(item => item.id === id);
+            if (!w) { showMessage('Wakf introuvable.', 'error'); return; }
+            detailTitle.textContent = `📋 ${w.name}`;
+            detailContent.innerHTML = `
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1rem;">
+                    <div><strong>Type</strong><br>${w.type}</div>
+                    <div><strong>Statut</strong><br><span class="badge ${w.status}">${w.status}</span></div>
+                    <div><strong>Valeur</strong><br>$${w.value.toLocaleString()}</div>
+                    <div><strong>Revenu annuel</strong><br>$${w.revenue.toLocaleString()}</div>
+                    <div style="grid-column: span 2;">
+                        <strong>Actifs</strong><br>${w.assets.join(', ')}
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <strong>Bénéficiaires</strong><br>${w.beneficiaries.join(', ')}
+                    </div>
+                </div>
+            `;
+            detailCard.style.display = 'block';
+            detailCard.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ------------------------------------------------------------------
+        // 5. CRUD
+        // ------------------------------------------------------------------
+        function deleteWakf(id) {
+            if (!confirm('Supprimer ce Wakf ? Cette action est irréversible.')) return;
+            wakfData = wakfData.filter(w => w.id !== id);
+            renderAll();
+            if (detailCard.style.display !== 'none') detailCard.style.display = 'none';
+            showMessage('Wakf supprimé avec succès.', 'success');
+        }
+
+        function saveWakf(data) {
+            if (data.id) {
+                // Édition
+                const index = wakfData.findIndex(w => w.id === data.id);
+                if (index !== -1) {
+                    wakfData[index] = data;
+                    showMessage('Wakf mis à jour.', 'success');
+                }
+            } else {
+                // Création
+                data.id = nextId;
+                nextId = 'w' + (parseInt(nextId.slice(1)) + 1);
+                wakfData.push(data);
+                showMessage('Wakf créé avec succès.', 'success');
+            }
+            renderAll();
+            closeModal();
+        }
+
+        // ------------------------------------------------------------------
+        // 6. Modal
+        // ------------------------------------------------------------------
+        function openModal(title, data = null) {
+            modalTitle.textContent = title;
+            if (data) {
+                editId.value = data.id;
+                wakfName.value = data.name;
+                wakfType.value = data.type;
+                wakfValue.value = data.value;
+                wakfRevenue.value = data.revenue;
+                wakfBeneficiaries.value = data.beneficiaries.join(', ');
+                wakfAssets.value = data.assets.join(', ');
+                wakfStatus.value = data.status;
+                modalSaveBtn.textContent = 'Mettre à jour';
+            } else {
+                editId.value = '';
+                wakfForm.reset();
+                wakfValue.value = 0;
+                wakfRevenue.value = 0;
+                wakfStatus.value = 'active';
+                modalSaveBtn.textContent = 'Créer';
+            }
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        function openEditModal(id) {
+            const w = wakfData.find(item => item.id === id);
+            if (w) openModal('Modifier le Wakf', w);
+            else showMessage('Wakf introuvable.', 'error');
+        }
+
+        // Événements du modal
+        openCreateBtn.addEventListener('click', () => openModal('Nouveau Wakf'));
+        modalClose.addEventListener('click', closeModal);
+        modalCancelBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        wakfForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = {
+                id: editId.value || '',
+                name: wakfName.value.trim(),
+                type: wakfType.value,
+                value: parseFloat(wakfValue.value) || 0,
+                revenue: parseFloat(wakfRevenue.value) || 0,
+                beneficiaries: wakfBeneficiaries.value.split(',').map(s => s.trim()).filter(Boolean),
+                assets: wakfAssets.value.split(',').map(s => s.trim()).filter(Boolean),
+                status: wakfStatus.value,
+            };
+            if (!data.name) { showMessage('Le nom est requis.', 'error'); return; }
+            saveWakf(data);
+        });
+
+        // ------------------------------------------------------------------
+        // 7. Messages
+        // ------------------------------------------------------------------
+        function showMessage(text, type = 'info') {
+            msgEl.textContent = text;
+            msgEl.className = 'msg ' + type;
+            if (type !== 'error') {
+                clearTimeout(window.msgTimeout);
+                window.msgTimeout = setTimeout(() => { msgEl.className = 'msg'; }, 5000);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // 8. Initialisation
+        // ------------------------------------------------------------------
+        renderAll();
+
+        // Simuler un chargement de l'API (avec un petit délai)
+        setTimeout(() => {
+            showMessage('Données chargées depuis le ledger Fabric (simulation).', 'info');
+        }, 500);
+
+        console.log('🕌 Gestion des Wakf – interface prête.');
+    })();
+</script>
+
+</body>
+</html>

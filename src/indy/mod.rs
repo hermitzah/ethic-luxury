@@ -24,6 +24,7 @@ use async_trait::async_trait;
 // 1. Erreurs
 // -----------------------------------------------------------------------------
 
+/// Erreurs spécifiques au module Indy.
 #[derive(Debug, Error)]
 pub enum IndyError {
     #[error("Erreur de wallet : {0}")]
@@ -45,13 +46,14 @@ pub enum IndyError {
     Unknown(String),
 }
 
+/// Résultat de type `Result<T, IndyError>`.
 pub type Result<T> = std::result::Result<T, IndyError>;
 
 // -----------------------------------------------------------------------------
 // 2. Structures de base
 // -----------------------------------------------------------------------------
 
-/// Configuration pour le wallet Indy
+/// Configuration pour le wallet Indy.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IndyWalletConfig {
     pub wallet_name: String,
@@ -59,14 +61,14 @@ pub struct IndyWalletConfig {
     pub wallet_path: Option<PathBuf>,
 }
 
-/// Configuration du ledger Indy
+/// Configuration du ledger Indy.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IndyLedgerConfig {
     pub genesis_file: PathBuf,       // Fichier genesis.txn
     pub pool_name: String,           // Nom du pool (ex: "indy-pool")
 }
 
-/// Structure d'un DID avec ses métadonnées
+/// Structure d'un DID avec ses métadonnées.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IndyDID {
     pub did: String,
@@ -75,7 +77,7 @@ pub struct IndyDID {
     pub role: Option<String>,        // "TRUST_ANCHOR", "ENDORSER", etc.
 }
 
-/// Structure d'un Verifiable Credential (VC)
+/// Structure d'un Verifiable Credential (VC).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerifiableCredential {
     #[serde(rename = "@context")]
@@ -92,21 +94,22 @@ pub struct VerifiableCredential {
 // 3. Trait principal (abstraction du SDK Indy)
 // -----------------------------------------------------------------------------
 
+/// Trait définissant les opérations de base pour interagir avec Indy.
 #[async_trait]
 pub trait IndyAgent: Send + Sync {
-    /// Initialise le wallet (création ou ouverture)
+    /// Initialise le wallet (création ou ouverture).
     async fn init_wallet(&mut self, config: &IndyWalletConfig) -> Result<()>;
 
-    /// Ferme le wallet
+    /// Ferme le wallet.
     async fn close_wallet(&self) -> Result<()>;
 
-    /// Crée un nouveau DID (peut être déterministe avec une seed)
+    /// Crée un nouveau DID (peut être déterministe avec une seed).
     async fn create_did(&self, seed: Option<&str>) -> Result<IndyDID>;
 
-    /// Résout un DID sur le ledger (récupère le DID document)
+    /// Résout un DID sur le ledger (récupère le DID document).
     async fn resolve_did(&self, did: &str) -> Result<Value>;
 
-    /// Émet un Verifiable Credential
+    /// Émet un Verifiable Credential.
     async fn issue_credential(
         &self,
         issuer_did: &str,
@@ -115,10 +118,10 @@ pub trait IndyAgent: Send + Sync {
         schema_id: &str,
     ) -> Result<VerifiableCredential>;
 
-    /// Vérifie un Verifiable Credential
+    /// Vérifie un Verifiable Credential.
     async fn verify_credential(&self, credential: &VerifiableCredential) -> Result<bool>;
 
-    /// Révogue un credential (nécessite un Revocation Registry)
+    /// Révogue un credential (nécessite un Revocation Registry).
     async fn revoke_credential(&self, credential_id: &str, reason: &str) -> Result<()>;
 }
 
@@ -131,20 +134,20 @@ pub mod sdk {
     use super::*;
     use indy_sdk::{
         wallet, did, ledger, anoncreds,
-        pool, // et autres modules
+        pool,
     };
     use std::sync::Arc;
     use tokio::sync::Mutex;
 
-    /// Client Indy basé sur le SDK officiel
+    /// Client Indy basé sur le SDK officiel.
     pub struct IndyClient {
         wallet_handle: Arc<Mutex<Option<i32>>>,
         pool_handle: i32,
     }
 
     impl IndyClient {
+        /// Crée un nouveau client Indy en ouvrant le pool.
         pub async fn new(ledger_config: &IndyLedgerConfig) -> Result<Self> {
-            // Créer et ouvrir le pool
             let pool_handle = pool::create_pool_ledger_config(
                 &ledger_config.pool_name,
                 &ledger_config.genesis_file.to_string_lossy(),
@@ -222,12 +225,11 @@ pub mod sdk {
             let handle = self.wallet_handle.lock().await;
             let wallet_handle = handle.ok_or(IndyError::WalletError("Wallet not opened".to_string()))?;
 
-            // Résoudre via le ledger
-            let request = ledger::build_get_did_request(&did)
+            let request = ledger::build_get_did_request(did)
                 .await
                 .map_err(|e| IndyError::LedgerError(e.to_string()))?;
 
-            let response = ledger::sign_and_submit_request(self.pool_handle, wallet_handle, &did, &request)
+            let response = ledger::sign_and_submit_request(self.pool_handle, wallet_handle, did, &request)
                 .await
                 .map_err(|e| IndyError::LedgerError(e.to_string()))?;
 
@@ -243,14 +245,9 @@ pub mod sdk {
             attributes: Value,
             schema_id: &str,
         ) -> Result<VerifiableCredential> {
-            let handle = self.wallet_handle.lock().await;
-            let wallet_handle = handle.ok_or(IndyError::WalletError("Wallet not opened".to_string()))?;
-
-            // 1. Récupérer le schéma (simplifié)
-            // 2. Créer un credential offer (simplifié)
-            // 3. Signer et stocker le credential
-
-            // Exemple simplifié : on retourne un VC factice
+            let _handle = self.wallet_handle.lock().await;
+            // Réellement, on utiliserait anoncreds::issuer_create_credential_offer, etc.
+            // Pour l'exemple, on retourne un VC factice.
             let vc = VerifiableCredential {
                 context: vec!["https://www.w3.org/2018/credentials/v1".to_string()],
                 id: Some(format!("cred:{}", uuid::Uuid::new_v4())),
@@ -271,31 +268,21 @@ pub mod sdk {
         }
 
         async fn verify_credential(&self, credential: &VerifiableCredential) -> Result<bool> {
-            let handle = self.wallet_handle.lock().await;
-            let wallet_handle = handle.ok_or(IndyError::WalletError("Wallet not opened".to_string()))?;
-
-            // Vérification cryptographique réelle (simplifiée ici)
-            // On vérifie que le credential a un proof
-            if credential.proof.is_null() {
-                return Ok(false);
-            }
-            // Ici, on vérifierait la signature, la non-révocation, etc.
-            // Pour l'exemple, on retourne true
-            Ok(true)
+            let _handle = self.wallet_handle.lock().await;
+            // Vérification simplifiée : on regarde si le proof existe.
+            Ok(!credential.proof.is_null())
         }
 
-        async fn revoke_credential(&self, _credential_id: &str, _reason: &str) -> Result<()> {
-            // Nécessite un Revocation Registry configuré
-            // On simule
+        async fn revoke_credential(&self, credential_id: &str, _reason: &str) -> Result<()> {
+            // Nécessite un Revocation Registry configuré.
+            // Simulé.
             Ok(())
         }
     }
 
-    // Drop pour fermer le wallet proprement
     impl Drop for IndyClient {
         fn drop(&mut self) {
-            // On ne peut pas faire d'async dans drop, on ignore la fermeture
-            // Idéalement, on appellerait close_wallet avant le drop
+            // On ignore la fermeture asynchrone (à faire manuellement avant le drop).
         }
     }
 }
@@ -304,7 +291,7 @@ pub mod sdk {
 // 5. Client de façade (simulation)
 // -----------------------------------------------------------------------------
 
-/// Client Indy simulé (pour les tests ou sans la feature indy)
+/// Client Indy simulé (pour les tests ou sans la feature indy).
 pub struct MockIndyClient {
     dids: HashMap<String, IndyDID>,
     credentials: Vec<VerifiableCredential>,
@@ -375,7 +362,6 @@ impl IndyAgent for MockIndyClient {
     }
 
     async fn verify_credential(&self, credential: &VerifiableCredential) -> Result<bool> {
-        // Simule une vérification : si le proof existe et que le credential a un sujet
         Ok(!credential.credential_subject.is_null())
     }
 
@@ -388,12 +374,12 @@ impl IndyAgent for MockIndyClient {
 // 6. Fonctions utilitaires
 // -----------------------------------------------------------------------------
 
-/// Crée un DID et retourne ses identifiants
+/// Crée un DID et retourne ses identifiants.
 pub async fn create_did(agent: &dyn IndyAgent, seed: Option<&str>) -> Result<IndyDID> {
     agent.create_did(seed).await
 }
 
-/// Émet un VC d'éligibilité pour un investisseur
+/// Émet un VC d'éligibilité pour un investisseur.
 pub async fn issue_investor_credential(
     agent: &dyn IndyAgent,
     issuer_did: &str,
@@ -409,16 +395,14 @@ pub async fn issue_investor_credential(
     agent.issue_credential(issuer_did, holder_did, attributes, "InvestorEligibilitySchema:v1").await
 }
 
-/// Vérifie un VC d'éligibilité
+/// Vérifie un VC d'éligibilité.
 pub async fn verify_investor_credential(
     agent: &dyn IndyAgent,
     credential: &VerifiableCredential,
 ) -> Result<bool> {
-    // Vérification de base
     if !credential.r#type.contains(&"InvestorEligibility".to_string()) {
         return Ok(false);
     }
-    // Vérification cryptographique
     agent.verify_credential(credential).await
 }
 

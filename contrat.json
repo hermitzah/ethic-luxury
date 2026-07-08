@@ -1,0 +1,14 @@
+{
+  "contract_type": "Mudarabah",
+  "industry": "Halal",
+  "principal_amount": 100000,
+  "expected_profit_rate": null,
+  "manager_profit_share": 0.3,
+  "investor_profit_share": 0.7,
+  "maturity_timestamp": 1700000000,
+  "signing_timestamp": 1600000000,
+  "asset_id": "real_estate_001",
+  "collateral_amount": 50000,
+  "is_fixed_term": true,
+  "ambiguous_clauses": []
+}
