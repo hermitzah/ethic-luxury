@@ -1,0 +1,119 @@
+# ==============================================================================
+# Fichier de configuration pour cargo-deny
+# Emplacement : policies/deny.toml
+# Utilisation : cargo deny check --config policies/deny.toml
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Règles sur les licences
+# ------------------------------------------------------------------------------
+
+[licenses]
+# Niveau de sévérité pour les violations de licence
+# "deny" bloque la compilation, "warn" affiche un avertissement
+unlicensed = "deny"
+allow-osi-fsf-free = "deny"      # Vérifie que les licences sont libres (OSI ou FSF)
+copyleft = "deny"                # Interdit les licences copyleft strictes (GPL, etc.)
+allow = [
+    # Licences permissives compatibles avec DWPL-2.0
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "MPL-2.0",
+    "Unicode-DFS-2016",
+    "Zlib",
+    "OpenSSL",
+    "BSL-1.0",   # Boost
+    # Licence propre au projet (DWPL-2.0) – à ajouter si elle est reconnue
+    "DWPL-2.0",
+]
+# Licences interdites (explicite)
+deny = [
+    "GPL-2.0",
+    "GPL-3.0",
+    "LGPL-2.0",
+    "LGPL-3.0",
+    "AGPL-3.0",
+    "CC-BY-SA-4.0",
+    "CC-BY-NC-4.0",  # Non commerciale – incompatible
+]
+
+# Exceptions pour certaines crates (si besoin)
+# exceptions = [
+#     { name = "example-crate", allow = ["GPL-3.0"] },
+# ]
+
+# ------------------------------------------------------------------------------
+# 2. Règles sur les dépendances interdites (bans)
+# ------------------------------------------------------------------------------
+
+[bans]
+# Interdit les dépendances multiples d'une même crate avec des versions différentes
+multiple-versions = "deny"
+# Interdit les dépendances avec des versions vulnérables
+wildcards = "deny"
+# Interdit les dépendances qui n'ont pas de source explicite (ex: path)
+# allow-git = false  # On autorise les dépôts git (comme fabric-sdk)
+
+# Liste des crates à bannir (ex: historiquement problématiques)
+deny = [
+    # "openssl",   # On préfère rustls si possible
+    # "ring",      # Potentiellement problématique
+]
+
+# Exceptions pour les doublons
+workspace-default-features = "deny"
+workspace-features = "deny"
+
+# ------------------------------------------------------------------------------
+# 3. Sources autorisées
+# ------------------------------------------------------------------------------
+
+[sources]
+# Autorise uniquement les sources suivantes :
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = [
+    # Dépôts Git autorisés (pour les dépendances non publiées sur crates.io)
+    "https://github.com/hyperledger/fabric-sdk-rust",
+    "https://github.com/hyperledger/indy-sdk",
+]
+# Désactive les sources de type "path" (pour les workspaces) ou on peut les autoriser
+# allow-path = ["."]   # Si vous avez des dépendances locales
+
+# ------------------------------------------------------------------------------
+# 4. Vérification des vulnérabilités
+# ------------------------------------------------------------------------------
+
+[advisories]
+# Niveau de sévérité minimum pour échouer
+severity = "medium"   # "low", "medium", "high", "critical"
+# Vérifie les bases de données de vulnérabilités (RustSec)
+db-urls = ["https://raw.githubusercontent.com/rustsec/advisory-db/main/crates"]
+# Si une vulnérabilité n'a pas de correctif, on échoue
+ignore-unfixed = false
+
+# Ignorer des avis spécifiques (ex: faux positifs)
+# ignore = [
+#     { id = "RUSTSEC-2022-XXXX" },
+# ]
+
+# ------------------------------------------------------------------------------
+# 5. Vérification des dépôts (pour les sources Git)
+# ------------------------------------------------------------------------------
+
+[git]
+# Vérifie que les dépôts Git sont signés (si possible)
+# allow-commit-signature = true
+
+# ------------------------------------------------------------------------------
+# 6. Règles pour le projet (personnalisation)
+# ------------------------------------------------------------------------------
+
+# Section pour les règles propres au projet
+# (facultatif)
+
+# ------------------------------------------------------------------------------
+# Fin du fichier
+# ==============================================================================

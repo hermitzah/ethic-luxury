@@ -1,0 +1,443 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Encoding and Languages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel} % Changed to English
+
+% --- Layout and Typography ---
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{microtype}
+
+% --- Functional Packages ---
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{amssymb}
+\usepackage{marvosym}
+\usepackage{hyperref}
+
+% --- Hyperlink Configuration ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkgray,
+    urlcolor=blue,
+    pdftitle={Guide to Donating to an Association in Africa},
+    pdfauthor={Abd El Hakim ZOUAÏ (Cutopia)},
+    pdfsubject={Actions required for a secure and tax-optimized donation}
+}
+
+% --- Custom Colors ---
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{darkgray}{gray}{0.4}
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{boxblue}{rgb}{0.85, 0.92, 0.95}
+\definecolor{cutopia}{rgb}{0.85, 0.35, 0.55}
+\definecolor{orangebox}{rgb}{0.98, 0.75, 0.5}
+\definecolor{redalert}{rgb}{0.8, 0.2, 0.2}
+
+% --- Section Styling ---
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{darkgray}}
+{\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{darkgray}}
+{\thesubsection}{1em}{}
+
+% --- Environments ---
+\newtcolorbox{resumebox}{
+    colback=lightgray,
+    colframe=darkgray,
+    arc=0mm,
+    boxrule=0.5pt,
+    boxsep=5pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt
+}
+
+\newtcolorbox{helpbox}{
+    colback=boxblue,
+    colframe=blue!50!black,
+    arc=2mm,
+    boxrule=0.8pt,
+    boxsep=5pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+\newtcolorbox{alertbox}{
+    colback=redalert!10!white,
+    colframe=redalert,
+    arc=2mm,
+    boxrule=1pt,
+    boxsep=5pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    title={[!] Alert}
+}
+
+\newtcolorbox{conseilbox}{
+    colback=cutopia!8!white,
+    colframe=cutopia,
+    arc=3mm,
+    boxrule=1.2pt,
+    boxsep=6pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt,
+    fonttitle=\bfseries\large,
+    title={[*] Free Cutopia Advice [*]}
+}
+
+% --- Simple Symbols (no fontawesome) ---
+\newcommand{\cmark}{\textcolor{darkgreen}{\textbf{\checkmark}}}
+\newcommand{\arrow}{\textcolor{darkgreen}{\textbf{$\rightarrow$}}}
+\newcommand{\heart}{\textcolor{cutopia}{\textbf{$\heartsuit$}}}
+\newcommand{\starred}{\textcolor{darkgray}{\textbf{$\star$}}}
+\newcommand{\euro}{\textcolor{darkgreen}{\textbf{\EUR}}}
+\newcommand{\info}{\textcolor{blue}{\textbf{(i)}}}
+
+% --- Custom Lists ---
+\newlist{checklist}{itemize}{2}
+\setlist[checklist]{label=\cmark, leftmargin=*}
+
+\newlist{arrowlist}{itemize}{2}
+\setlist[arrowlist]{label=\arrow, leftmargin=*}
+
+\newlist{heartlist}{itemize}{2}
+\setlist[heartlist]{label=\heart, leftmargin=*}
+
+\newlist{starredlist}{itemize}{2}
+\setlist[starredlist]{label=\starred, leftmargin=*}
+
+% --- Document Start ---
+\begin{document}
+
+% --- Header ---
+\begin{center}
+    {\Huge \textbf{Complete Guide to Secure Donations}} \\[0.3cm]
+    {\Large \textbf{To an Association in Africa}} \\[0.3cm]
+    {\large \textcolor{darkgray}{For European Donors}} \\[0.5cm]
+    \rule{0.7\textwidth}{0.4pt} \\[0.3cm]
+    \textit{A step-by-step guide for a transparent, effective, and tax-optimized donation}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- Table of Contents ---
+\tableofcontents
+\newpage
+
+% --- Introduction ---
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+This guide is designed to assist you through every step of your donation to an association in Africa. Whether you are an occasional or regular donor, you will find here the necessary information to act securely and maximize the impact of your generosity.
+
+\vspace{0.3cm}
+\begin{resumebox}
+    \centering
+    \textbf{\Large What you will find in this guide} \\[0.3cm]
+    \begin{tabular}{ll}
+        \cmark & Pre-donation checks \\
+        \euro & Most suitable transfer methods \\
+        \starred & Securing your donation \\
+        \info & Tax benefits (depending on your country) \\
+        \arrow & Documents to request from the association \\
+        \heart & Free assistance via the Cutopia network
+    \end{tabular}
+\end{resumebox}
+\vspace{0.3cm}
+
+\newpage
+
+% --- Section 1 ---
+\section{Mandatory Preliminary Checks}
+
+Before any money transfer, you must absolutely ensure the legitimacy and reliability of the recipient association.
+
+\subsection{Clearly Identify the Association}
+\begin{checklist}
+    \item Exact name of the association (as officially registered)
+    \item Country of operation (may differ from the country of registration)
+    \item Main purpose: health, education, environment, human rights, etc.
+    \item Year of establishment and tenure of leaders
+\end{checklist}
+
+\subsection{Verify Legality in its Home Country}
+\begin{checklist}
+    \item Is the association registered with the relevant authorities?
+    \begin{itemize}
+        \item In Francophone Africa: ministerial receipt (Interior or Territorial Administration)
+        \item In Anglophone Africa: certificate of incorporation
+        \item In Lusophone Africa: registro da associação
+    \end{itemize}
+    \item Does it have a Tax Identification Number (TIN/NIF)?
+    \item Is it up-to-date with its annual declarations?
+\end{checklist}
+
+\subsection{Look for Reviews and Transparency Reports}
+\begin{checklist}
+    \item Consult the association's annual reports (at least the last two fiscal years)
+    \item Verify its presence on recognized platforms:
+    \begin{itemize}
+        \item GiveWell (recommendation based on demonstrated effectiveness)
+        \item GuideStar (financial transparency)
+        \item GlobalGiving (verified projects)
+    \end{itemize}
+    \item Search for press articles or case studies involving the association
+\end{checklist}
+
+\subsection{Contact the Association Directly}
+\begin{arrowlist}
+    \item Send an email or call before giving
+    \item Ask specific questions
+    \item Assess the quality and speed of their response
+\end{arrowlist}
+
+\begin{helpbox}
+    \centering
+    \info\ \textbf{Good to know} \\
+    A reliable and well-structured association will respond within a reasonable time (48 to 72 hours) and will provide the requested information without difficulty.
+\end{helpbox}
+
+\newpage
+
+% --- Section 2 ---
+\section{Choosing the Transfer Method}
+
+\subsection{Comparison of Transfer Methods}
+
+\begin{tcolorbox}[colback=lightgray, colframe=darkgray, title=Comparison Table]
+    \small
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{3cm}|p{2cm}|p{2cm}|p{2.5cm}|p{2cm}|}
+        \hline
+        \textbf{Method} & \textbf{Fees} & \textbf{Time} & \textbf{Security} & \textbf{Recommendation} \\
+        \hline
+        SWIFT Transfer & 20-50 € + exchange & 2-5 days & High & Excellent \\
+        \hline
+        Wise (TransferWise) & 0.5-1\% & 1-2 days & High & Excellent \\
+        \hline
+        Revolut & 0-1\% & Instant & High & Very Good \\
+        \hline
+        Platform (GlobalGiving) & 5-15\% & Variable & High & Good \\
+        \hline
+        Mobile Money & 1-5\% + exchange & Instant & Medium & Medium \\
+        \hline
+        Western Union & 5-15\% & Instant & Low & Avoid \\
+        \hline
+        Cash & 0\% & Instant & Very Low & Avoid \\
+        \hline
+    \end{tabular}
+\end{tcolorbox}
+
+\subsection{Details by Transfer Method}
+
+\subsubsection{International Bank Transfer (SWIFT)}
+\begin{arrowlist}
+    \item \textbf{To request from the association:} IBAN, BIC/SWIFT code
+    \item \textbf{Verification:} The account holder's name must be the association's name
+    \item \textbf{Note:} Intermediary fees may apply
+\end{arrowlist}
+
+\subsubsection{SEPA Transfer}
+\begin{arrowlist}
+    \item \textbf{Condition:} Account in a SEPA zone bank
+    \item \textbf{Advantage:} Generally zero fees
+\end{arrowlist}
+
+\subsubsection{Secure Donation Platforms}
+\begin{arrowlist}
+    \item GlobalGiving: verified projects
+    \item HelloAsso: for projects carried by French associations
+\end{arrowlist}
+
+\begin{alertbox}
+    \centering
+    \textbf{Methods to absolutely avoid} \\
+    \vspace{0.2cm}
+    Western Union, sending cash, personal bank account
+\end{alertbox}
+
+\newpage
+
+% --- Section 3 ---
+\section{Optimizing Fees and Exchange Rates}
+
+\subsection{Compare Bank Fees}
+\begin{starredlist}
+    \item Check your bank's fee schedule
+    \item Watch out for hidden fees (fixed commission + exchange fees)
+\end{starredlist}
+
+\subsection{Use a Low-Cost Transfer Service}
+\begin{starredlist}
+    \item \textbf{Wise:} Recommended, transparent fees (0.5-1\%)
+    \item \textbf{Revolut:} Very competitive
+\end{starredlist}
+
+\subsection{Choose the Sending Currency}
+\begin{starredlist}
+    \item Ask the association which currency is most convenient
+    \item Sending in Euros or Dollars is often advantageous
+\end{starredlist}
+
+\newpage
+
+% --- Section 4 ---
+\section{Securing Your Donation}
+
+\begin{checklist}
+    \item \textbf{Never donate without a receipt}
+    \item \textbf{Demand an official document}
+    \item \textbf{Protect your personal data}
+    \item \textbf{Report any suspicious behavior}
+\end{checklist}
+
+\subsection{Tax Receipt and Certificate}
+\begin{arrowlist}
+    \item The association must provide a certificate including:
+    \begin{itemize}
+        \item Its name, address, and registration number
+        \item Your name and address
+        \item The date and amount
+    \end{itemize}
+\end{arrowlist}
+
+\newpage
+
+% --- Section 5 ---
+\section{Tax Benefits by Country}
+
+\subsection{France}
+\begin{heartlist}
+    \item Rate: 66\% of the donation (limit of 20\% of income)
+    \item The association must have a fiscal relay in France
+\end{heartlist}
+
+\subsection{Belgium}
+\begin{heartlist}
+    \item Rate: 45\% of the donation (minimum 40 €)
+    \item The association must be recognized
+\end{heartlist}
+
+\subsection{Switzerland}
+\begin{heartlist}
+    \item Rate varies by canton (20-30\%)
+\end{heartlist}
+
+\newpage
+
+% --- Section 6 ---
+\section{Post-Donation Follow-up}
+
+\subsection{Keep Supporting Documents}
+\begin{checklist}
+    \item Confirmation email
+    \item Bank statement
+    \item Donation certificate
+\end{checklist}
+
+\subsection{Request an Impact Report}
+\begin{arrowlist}
+    \item Send a request 3 to 6 months after the donation
+    \item Ask for a report, photos, indicators
+\end{arrowlist}
+
+\newpage
+
+% --- Section 7 ---
+\section{List of Documents to Request}
+
+\begin{tcolorbox}[colback=darkgreen!5!white, colframe=darkgreen!75!black, title=\textbf{Category 1: Proof of Legal Existence}]
+\begin{starredlist}
+    \item Association's bylaws
+    \item Declaration receipt
+    \item Tax Identification Number (TIN/NIF)
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Category 2: Governance and Transparency}]
+\begin{starredlist}
+    \item Minutes of the last General Assembly
+    \item Composition of the Board
+    \item Activity reports
+    \item Annual financial statements
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=orange!5!white, colframe=orange!75!black, title=\textbf{Category 3: Project Documents}]
+\begin{starredlist}
+    \item Project presentation file
+    \item Project budget
+    \item Execution reports
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=darkgray!5!white, colframe=darkgray!75!black, title=\textbf{Category 4: Banking Documents}]
+\begin{starredlist}
+    \item Official bank details (RIB) in the association's name
+    \item Official request letter
+    \item Partnership agreement
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{alertbox}
+    \centering
+    \textbf{Red Flag} \\
+    If the association refuses to provide these documents, suspend the transfer.
+\end{alertbox}
+
+\newpage
+
+% --- Section 8 ---
+\section*{Free Cutopia Advice}
+\addcontentsline{toc}{section}{Free Cutopia Advice}
+
+\begin{conseilbox}
+    \centering
+    {\Large \textbf{Abd El Hakim ZOUAÏ}} \\[0.2cm]
+    \textit{Volunteer Advisor at Cutopia} \\[0.3cm]
+    
+    Free consultation for:
+    \begin{starredlist}
+        \item Verifying the legality of an African association
+        \item Structuring a secure cross-border donation
+        \item Obtaining a partnership agreement template
+    \end{starredlist}
+    
+    \vspace{0.3cm}
+    \rule{0.7\textwidth}{0.3pt} \\[0.3cm]
+    \textbf{Contact:} \\
+    \texttt{abdelhakimzouai@gmail.com} \\[0.2cm]
+    \texttt{+213 672 41 01 92}
+\end{conseilbox}
+
+\newpage
+
+% --- Final Checklist ---
+\section*{Final Checklist}
+\addcontentsline{toc}{section}{Final Checklist}
+
+\begin{tcolorbox}[colback=lightgray, colframe=darkgray]
+    \begin{checklist}
+        \item[$\square$] I verified the legal existence of the association
+        \item[$\square$] I analyzed its financial statements
+        \item[$\square$] I chose a secure transfer method
+        \item[$\square$] I obtained bank details (RIB) in the association's name
+        \item[$\square$] I kept all supporting documents
+    \end{checklist}
+\end{tcolorbox}
+
+\vspace{1cm}
+\begin{center}
+    \heart\ \textcolor{cutopia}{\textbf{Your donation can change lives if done right.}} \ \heart
+\end{center}
+
+\vspace{0.5cm}
+\begin{center}
+    \rule{0.6\textwidth}{0.3pt} \\[0.3cm]
+    {\small \textcolor{darkgray}{Guide written with the support of \textbf{Abd El Hakim ZOUAÏ (Cutopia)} for \textbf{Ethic Luxury}.}} \\
+    \small{\textcolor{darkgray}{\texttt{abdelhakimzouai@gmail.com} \quad | \quad \texttt{+213 672 41 01 92}}}
+\end{center}
+
+\end{document}

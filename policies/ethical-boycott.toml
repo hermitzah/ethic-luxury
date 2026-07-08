@@ -1,0 +1,119 @@
+# ==============================================================================
+# Fichier de configuration pour cargo-deny – Scan éthique et boycott
+# Emplacement : policies/ethical-boycott.toml
+# Utilisation : cargo deny check --config policies/ethical-boycott.toml
+# Alias défini : cargo ethics-scan
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Règles sur les licences (cohérentes avec deny.toml)
+# ------------------------------------------------------------------------------
+
+[licenses]
+unlicensed = "deny"
+allow-osi-fsf-free = "deny"
+copyleft = "deny"
+
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "MPL-2.0",
+    "Unicode-DFS-2016",
+    "Zlib",
+    "OpenSSL",
+    "BSL-1.0",
+    "DWPL-2.0",
+]
+
+deny = [
+    "GPL-2.0",
+    "GPL-3.0",
+    "LGPL-2.0",
+    "LGPL-3.0",
+    "AGPL-3.0",
+    "CC-BY-SA-4.0",
+    "CC-BY-NC-4.0",
+]
+
+# ------------------------------------------------------------------------------
+# 2. Règles de boycott éthique (bans)
+# ------------------------------------------------------------------------------
+
+[bans]
+# Interdit les versions multiples (sévère)
+multiple-versions = "deny"
+# Interdit les wildcards dans les versions (ex: "*" )
+wildcards = "deny"
+# Interdit les dépendances qui n'ont pas de source explicite
+# allow-git = false   # On autorise les dépôts Git pour les SDK Fabric/Indy
+
+# Liste des crates à bannir pour des raisons éthiques
+deny = [
+    # Exemples : crates liées à l'usure (Riba), au jeu, à l'alcool, etc.
+    # À adapter selon votre contexte et les pratiques que vous souhaitez boycotter.
+    # "interest-rate-calculator",
+    # "gambling-engine",
+    # "alcohol-pricing",
+    # "pork-supply-chain",
+]
+
+# On peut bannir des auteurs ou des organisations
+# deny-authors = ["unethical-org", "bad-actor"]
+
+# Interdire les dépendances provenant de certains dépôts (pays, entités)
+# deny-sources = ["https://github.com/country-to-boycott"]
+
+# ------------------------------------------------------------------------------
+# 3. Règles avancées avec expressions régulières
+# ------------------------------------------------------------------------------
+
+# Permet de bannir toutes les crates dont le nom contient certains motifs
+# [bans.external]
+# deny = [
+#     { name = ".*interest.*" },
+#     { name = ".*usury.*" },
+#     { name = ".*gambl.*" },
+#     { name = ".*alcohol.*" },
+# ]
+
+# ------------------------------------------------------------------------------
+# 4. Sources autorisées
+# ------------------------------------------------------------------------------
+
+[sources]
+# Seul le registre crates.io est autorisé
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+# On autorise les dépôts Git des SDK Fabric et Indy
+allow-git = [
+    "https://github.com/hyperledger/fabric-sdk-rust",
+    "https://github.com/hyperledger/indy-sdk",
+]
+# Interdire les dépendances locales (path)
+# allow-path = []
+
+# ------------------------------------------------------------------------------
+# 5. Vérification des vulnérabilités (niveau strict)
+# ------------------------------------------------------------------------------
+
+[advisories]
+severity = "medium"   # Bloque les vulnérabilités de niveau ≥ medium
+db-urls = ["https://raw.githubusercontent.com/rustsec/advisory-db/main/crates"]
+ignore-unfixed = false
+
+# ------------------------------------------------------------------------------
+# 6. Exceptions (si nécessaire)
+# ------------------------------------------------------------------------------
+
+# On peut ajouter des exceptions pour des crates légitimes qui déclencheraient
+# un faux positif.
+# [bans.exceptions]
+# allow = [
+#     { name = "example-crate" },
+# ]
+
+# ==============================================================================
+# FIN DU FICHIER
+# ==============================================================================

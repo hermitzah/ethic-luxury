@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Ethic Luxury · Accessoires éthiques · Dons solidaires</title>
+    <meta name="description" content="Ethic Luxury : boutique d'accessoires femme alliant élégance et générosité. 10% de vos achats reversés à des associations en Afrique, Palestine, Europe de l'Est et Asie.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefcf8;
+            color: #1e2a2e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #eee6dc;
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #c6a43b, #8b6b2c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo p {
+            font-size: 0.75rem;
+            color: #a68b5c;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c4b3e;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #c6a43b;
+        }
+
+        .btn-donor {
+            background: #2c4b3e;
+            color: white !important;
+            padding: 0.6rem 1.3rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+        }
+
+        .btn-donor:hover {
+            background: #c6a43b;
+            transform: translateY(-2px);
+        }
+
+        /* Hero section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem 0 4rem;
+        }
+
+        .hero-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #2c4b3e;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-highlight {
+            color: #c6a43b;
+            border-bottom: 2px solid #e3c992;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #4a5b52;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2c4b3e;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #2c4b3e;
+            color: #2c4b3e;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #c6a43b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            background: #f8f4ec;
+            border-color: #c6a43b;
+            color: #c6a43b;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+        }
+
+        /* Featured products */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 3rem 0 1rem;
+            color: #2c4b3e;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #7a8f82;
+            margin-bottom: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s;
+            border: 1px solid #f0eae2;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+        }
+
+        .product-img {
+            height: 280px;
+            background: #f3efe8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .price {
+            color: #c6a43b;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .don-badge {
+            font-size: 0.75rem;
+            background: #e9e0d3;
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            color: #6a4e2e;
+        }
+
+        /* Impact / Donations section */
+        .impact-section {
+            background: linear-gradient(145deg, #f5f0e8 0%, #fefaf5 100%);
+            border-radius: 48px;
+            padding: 3rem 2rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .map-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .region {
+            background: white;
+            padding: 1rem 1.8rem;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .region i {
+            font-size: 1.3rem;
+            color: #c6a43b;
+        }
+
+        .don-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2c4b3e;
+        }
+
+        /* CTA donation block */
+        .cta-donation {
+            background: #2c4b3e;
+            color: white;
+            border-radius: 28px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .cta-donation h3 {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        .btn-light {
+            background: #f6e3b5;
+            color: #2c4b3e;
+            padding: 0.9rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-light:hover {
+            background: #c6a43b;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e0d6ca;
+            padding: 2.5rem 0 2rem;
+            margin-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #5b6e63;
+            text-decoration: none;
+            margin: 0.4rem 0;
+            font-size: 0.9rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #8f9e93;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .container {
+                padding: 0 1.2rem;
+            }
+            .navbar {
+                flex-direction: column;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>ETHIC LUXURY</h1>
+            <p>ÉLÉGANCE · GÉNÉROSITÉ · IMPACT</p>
+        </div>
+        <div class="nav-links">
+            <a href="#">Boutique</a>
+            <a href="#">Nouveautés</a>
+            <a href="#impact">Notre impact</a>
+            <a href="#dons">Dons</a>
+            <a href="#" class="btn-donor"><i class="fas fa-heart"></i> Donatrice</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-content">
+            <h2>L’élégance qui <span class="hero-highlight">transforme</span> des vies</h2>
+            <p>Chaque sac, chaque foulard ou bijou acheté chez Ethic Luxury reverse <strong>10% de son prix</strong> à des associations locales en Afrique, Palestine, Europe de l’Est et Asie.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary"><i class="fas fa-shopping-bag"></i> Découvrir la collection</a>
+                <a href="#dons" class="btn-secondary"><i class="fas fa-hand-holding-heart"></i> Faire un don direct</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://placehold.co/600x500/f5efe7/8b6b2c?text=Ethic+Luxury+Collection" alt="Accessoire de luxe éthique">
+        </div>
+    </div>
+
+    <!-- Produits vedettes -->
+    <h2 class="section-title">✨ Pièces d'exception ✨</h2>
+    <p class="section-sub">Des accessoires intemporels, fabriqués avec soin</p>
+    <div class="products-grid">
+        <div class="product-card">
+            <div class="product-img">👜</div>
+            <div class="product-info">
+                <h3>Sac en cuir végétal</h3>
+                <div class="price">189 €</div>
+                <span class="don-badge"><i class="fas fa-seedling"></i> 18,90€ reversés</span>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">🧣</div>
+            <div class="product-info">
+                <h3>Carré de soie éthique</h3>
+                <div class="price">79 €</div>
+                <span class="don-badge"><i class="fas fa-seedling"></i> 7,90€ reversés</span>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">💎</div>
+            <div class="product-info">
+                <h3>Bracelet or recyclé</h3>
+                <div class="price">149 €</div>
+                <span class="don-badge"><i class="fas fa-seedling"></i> 14,90€ reversés</span>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">👒</div>
+            <div class="product-info">
+                <h3>Chapeau paille luxe</h3>
+                <div class="price">99 €</div>
+                <span class="don-badge"><i class="fas fa-seedling"></i> 9,90€ reversés</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section IMPACT dons -->
+    <div id="impact" class="impact-section">
+        <h2 style="font-family: 'Playfair Display'; font-size: 2rem;">🌍 Notre générosité n'a pas de frontières</h2>
+        <p style="max-width: 700px; margin: 0.5rem auto;">Grâce à vous, nous soutenons des projets concrets partout où l'aide est vitale.</p>
+        <div class="map-icons">
+            <div class="region"><i class="fas fa-map-marker-alt"></i> Afrique (Sénégal, Kenya, RDC)</div>
+            <div class="region"><i class="fas fa-map-marker-alt"></i> Palestine (Gaza, Cisjordanie)</div>
+            <div class="region"><i class="fas fa-map-marker-alt"></i> Europe de l'Est (Roumanie, Ukraine)</div>
+            <div class="region"><i class="fas fa-map-marker-alt"></i> Asie (Népal, Cambodge, Yémen)</div>
+        </div>
+        <div class="don-stats">
+            <div class="stat"><div class="stat-number">124 000 €</div><div>dons versés en 2025</div></div>
+            <div class="stat"><div class="stat-number">18</div><div>associations partenaires</div></div>
+            <div class="stat"><div class="stat-number">4 200+</div><div>vies impactées</div></div>
+        </div>
+        <p><i class="fas fa-check-circle" style="color:#c6a43b;"></i> 100% transparent : chaque reçu de don est publié dans notre rapport annuel.</p>
+    </div>
+
+    <!-- Bloc Dons directs + conseils -->
+    <div id="dons" class="cta-donation">
+        <h3>✧ Vous souhaitez donner directement ? ✧</h3>
+        <p style="margin-bottom: 1rem;">Aucun achat nécessaire. Nous acheminons votre don de manière sécurisée vers l'association de votre choix.</p>
+        <a href="#" class="btn-light"><i class="fas fa-euro-sign"></i> Je fais un don libre</a>
+        <div style="margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.9;">
+            <i class="fas fa-shield-alt"></i> Virement SWIFT / Wise · Reçu fiscal (France, Belgique, Luxembourg, Suisse)
+        </div>
+    </div>
+
+    <!-- Liste des actions / guide donateur (reprenant l'esprit de votre document) -->
+    <div style="background: #fefaf5; border-radius: 28px; padding: 2rem; margin: 2rem 0; border: 1px solid #ede3d6;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-list-check"></i> Pour un don en toute confiance</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1rem;">
+            <div>✅ Vérification de l'association (récépissé local)</div>
+            <div>✅ Transfert low-cost (Wise / virement SWIFT)</div>
+            <div>✅ Reçu & rapport d'impact systématique</div>
+            <div>✅ Conforme RGPD & défiscalisation possible</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-col">
+            <strong>ETHIC LUXURY</strong><br>
+            <a href="#">À propos</a>
+            <a href="#">Notre charte éthique</a>
+            <a href="#">Devenir donatrice régulière</a>
+        </div>
+        <div class="footer-col">
+            <strong>Aide & Contact</strong>
+            <a href="#">FAQ dons</a>
+            <a href="#">contact@ethicluxury.com</a>
+            <a href="#">+33 1 84 90 32 10</a>
+        </div>
+        <div class="footer-col">
+            <strong>Suivez-nous</strong>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="#"><i class="fab fa-tiktok"></i> TikTok solidaire</a>
+        </div>
+    </footer>
+    <div class="copyright">
+        © 2026 Ethic Luxury · Boutique en ligne & cercle de donatrices · Tous droits réservés.
+    </div>
+</div>
+
+<!-- Petit script d'ancrage fluide -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href === "#" || href === "") return;
+            const target = document.querySelector(href);
+            if(target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

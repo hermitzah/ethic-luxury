@@ -1,0 +1,2570 @@
+openapi: 3.0.3
+info:
+  title: Islamic Finance Smart Contracts API (DWPL v2.0 Compliant)
+  version: 1.0.0
+  description: |
+    Interface unifiée pour les contrats intelligents conformes à la Charia.
+    
+    **Licence DWPL v2.0** :
+    Cette API et l'intégralité de ses contrats sous-jacents sont publiés sous la Licence Publique Waqf Décentralisée (DWPL) v2.0.
+    Conformément à l'Article 3 (Clause d'Irrévocabilité), une fois déployés sur un registre immuable, ces codes deviennent un Waqf numérique perpétuel, inaliénable et libres pour l'humanité.
+    URI du manifeste légal : ipfs://QmWaqfDWPLv2ManifesteComplet
+    Dérivations strictement soumises aux mêmes termes.
+    
+    **Compléments AAOIFI** : Les règles de partage des profits, les ratios de perte et les actifs sous-jacents sont conformes aux standards du Accounting and Auditing Organization for Islamic Financial Institutions.
+  contact:
+    name: Islamic Finance API Team
+    email: api@islamicfinance.dev
+  license:
+    name: DWPL v2.0 + AAOIFI Compliance
+    url: https://dwpl.islamicfinance.dev/license
+
+servers:
+  - url: https://api.islamicfinance.dev/v1
+    description: Production server
+  - url: https://sandbox.islamicfinance.dev/v1
+    description: Testing sandbox
+  - url: http://localhost:8081/v1
+    description: Local development
+
+security:
+  - OAuth2:
+      - financial.write
+      - partnership.read
+
+paths:
+  # --- CONTRATS DE PARTENARIAT ---
+  /mudarabah:
+    post:
+      summary: Créer un contrat Mudarabah
+      operationId: createMudarabah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mudarabah'
+      responses:
+        '201':
+          description: Contrat créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mudarabah'
+    get:
+      summary: Lister les Mudarabah
+      operationId: listMudarabah
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, matured, terminated]
+      responses:
+        '200':
+          description: Liste des contrats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mudarabah'
+  /mudarabah/{id}:
+    get:
+      summary: Détail d'un Mudarabah
+      operationId: getMudarabah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail du contrat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mudarabah'
+
+  /musharakah:
+    post:
+      summary: Créer un contrat Musharakah
+      operationId: createMusharakah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Musharakah'
+      responses:
+        '201':
+          description: Contrat créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musharakah'
+    get:
+      summary: Lister les Musharakah
+      operationId: listMusharakah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Musharakah'
+  /musharakah/{id}:
+    get:
+      summary: Détail d'un Musharakah
+      operationId: getMusharakah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musharakah'
+
+  /qirad:
+    post:
+      summary: Créer un Qirad
+      operationId: createQirad
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Qirad'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Qirad'
+    get:
+      summary: Lister les Qirad
+      operationId: listQirad
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Qirad'
+  /qirad/{id}:
+    get:
+      summary: Détail Qirad
+      operationId: getQirad
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Qirad'
+
+  /musaqat:
+    post:
+      summary: Créer un Musaqat
+      operationId: createMusaqat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Musaqat'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musaqat'
+    get:
+      summary: Lister Musaqat
+      operationId: listMusaqat
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Musaqat'
+  /musaqat/{id}:
+    get:
+      summary: Détail Musaqat
+      operationId: getMusaqat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musaqat'
+
+  /muzaraah:
+    post:
+      summary: Créer un Muzaraah
+      operationId: createMuzaraah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Muzaraah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Muzaraah'
+    get:
+      summary: Lister Muzaraah
+      operationId: listMuzaraah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Muzaraah'
+  /muzaraah/{id}:
+    get:
+      summary: Détail Muzaraah
+      operationId: getMuzaraah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Muzaraah'
+
+  # --- CONTRATS D'ÉCHANGE (VENTE) ---
+  /murabaha:
+    post:
+      summary: Créer une Murabaha
+      operationId: createMurabaha
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Murabaha'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Murabaha'
+    get:
+      summary: Lister Murabaha
+      operationId: listMurabaha
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Murabaha'
+  /murabaha/{id}:
+    get:
+      summary: Détail Murabaha
+      operationId: getMurabaha
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Murabaha'
+
+  /musawamah:
+    post:
+      summary: Créer une Musawamah
+      operationId: createMusawamah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Musawamah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musawamah'
+    get:
+      summary: Lister Musawamah
+      operationId: listMusawamah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Musawamah'
+  /musawamah/{id}:
+    get:
+      summary: Détail Musawamah
+      operationId: getMusawamah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Musawamah'
+
+  /salam:
+    post:
+      summary: Créer un Salam
+      operationId: createSalam
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Salam'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salam'
+    get:
+      summary: Lister Salam
+      operationId: listSalam
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Salam'
+  /salam/{id}:
+    get:
+      summary: Détail Salam
+      operationId: getSalam
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salam'
+
+  /istisna:
+    post:
+      summary: Créer un Istisna
+      operationId: createIstisna
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Istisna'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Istisna'
+    get:
+      summary: Lister Istisna
+      operationId: listIstisna
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Istisna'
+  /istisna/{id}:
+    get:
+      summary: Détail Istisna
+      operationId: getIstisna
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Istisna'
+
+  /bayalsalam:
+    post:
+      summary: Créer un Bay Al Salam
+      operationId: createBayAlSalam
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BayAlSalam'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BayAlSalam'
+    get:
+      summary: Lister Bay Al Salam
+      operationId: listBayAlSalam
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BayAlSalam'
+  /bayalsalam/{id}:
+    get:
+      summary: Détail Bay Al Salam
+      operationId: getBayAlSalam
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BayAlSalam'
+
+  /bayalistisna:
+    post:
+      summary: Créer un Bay Al Istisna
+      operationId: createBayAlIstisna
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BayAlIstisna'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BayAlIstisna'
+    get:
+      summary: Lister Bay Al Istisna
+      operationId: listBayAlIstisna
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BayAlIstisna'
+  /bayalistisna/{id}:
+    get:
+      summary: Détail Bay Al Istisna
+      operationId: getBayAlIstisna
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BayAlIstisna'
+
+  /arbun:
+    post:
+      summary: Créer un Arbun
+      operationId: createArbun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Arbun'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Arbun'
+    get:
+      summary: Lister Arbun
+      operationId: listArbun
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Arbun'
+  /arbun/{id}:
+    get:
+      summary: Détail Arbun
+      operationId: getArbun
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Arbun'
+
+  /tawarruq:
+    post:
+      summary: Créer un Tawarruq
+      operationId: createTawarruq
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tawarruq'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tawarruq'
+    get:
+      summary: Lister Tawarruq
+      operationId: listTawarruq
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tawarruq'
+  /tawarruq/{id}:
+    get:
+      summary: Détail Tawarruq
+      operationId: getTawarruq
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tawarruq'
+
+  # --- CONTRATS DE FINANCEMENT SOCIAL & GARANTIES ---
+  /qardhasan:
+    post:
+      summary: Créer un Qard Hasan
+      operationId: createQardHasan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QardHasan'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QardHasan'
+    get:
+      summary: Lister Qard Hasan
+      operationId: listQardHasan
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QardHasan'
+  /qardhasan/{id}:
+    get:
+      summary: Détail Qard Hasan
+      operationId: getQardHasan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QardHasan'
+
+  /wadiah:
+    post:
+      summary: Créer un Wadiah
+      operationId: createWadiah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Wadiah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wadiah'
+    get:
+      summary: Lister Wadiah
+      operationId: listWadiah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wadiah'
+  /wadiah/{id}:
+    get:
+      summary: Détail Wadiah
+      operationId: getWadiah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wadiah'
+
+  /hawala:
+    post:
+      summary: Créer un Hawala
+      operationId: createHawala
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hawala'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hawala'
+    get:
+      summary: Lister Hawala
+      operationId: listHawala
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hawala'
+  /hawala/{id}:
+    get:
+      summary: Détail Hawala
+      operationId: getHawala
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hawala'
+
+  /rahn:
+    post:
+      summary: Créer un Rahn
+      operationId: createRahn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rahn'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rahn'
+    get:
+      summary: Lister Rahn
+      operationId: listRahn
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rahn'
+  /rahn/{id}:
+    get:
+      summary: Détail Rahn
+      operationId: getRahn
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rahn'
+
+  # --- SUKUK (OBLIGATIONS ISLAMIQUES) ---
+  /sukuk:
+    post:
+      summary: Créer un Sukuk générique
+      operationId: createSukuk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sukuk'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sukuk'
+    get:
+      summary: Lister Sukuk
+      operationId: listSukuk
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sukuk'
+  /sukuk/{id}:
+    get:
+      summary: Détail Sukuk
+      operationId: getSukuk
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sukuk'
+
+  /sukukalmudarabah:
+    post:
+      summary: Créer un Sukuk Al Mudarabah
+      operationId: createSukukAlMudarabah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SukukAlMudarabah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SukukAlMudarabah'
+    get:
+      summary: Lister Sukuk Al Mudarabah
+      operationId: listSukukAlMudarabah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SukukAlMudarabah'
+  /sukukalmudarabah/{id}:
+    get:
+      summary: Détail Sukuk Al Mudarabah
+      operationId: getSukukAlMudarabah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SukukAlMudarabah'
+
+  /sukukalijara:
+    post:
+      summary: Créer un Sukuk Al Ijara
+      operationId: createSukukAlIjara
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SukukAlIjara'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SukukAlIjara'
+    get:
+      summary: Lister Sukuk Al Ijara
+      operationId: listSukukAlIjara
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SukukAlIjara'
+  /sukukalijara/{id}:
+    get:
+      summary: Détail Sukuk Al Ijara
+      operationId: getSukukAlIjara
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SukukAlIjara'
+
+  # --- LOCATION (IJARA) ---
+  /ijara:
+    post:
+      summary: Créer un Ijara
+      operationId: createIjara
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ijara'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ijara'
+    get:
+      summary: Lister Ijara
+      operationId: listIjara
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ijara'
+  /ijara/{id}:
+    get:
+      summary: Détail Ijara
+      operationId: getIjara
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ijara'
+
+  /ijaramuntahiabittamleek:
+    post:
+      summary: Créer un Ijara Muntahia Bittamleek
+      operationId: createIjaraMuntahiaBittamleek
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IjaraMuntahiaBittamleek'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IjaraMuntahiaBittamleek'
+    get:
+      summary: Lister Ijara Muntahia Bittamleek
+      operationId: listIjaraMuntahiaBittamleek
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IjaraMuntahiaBittamleek'
+  /ijaramuntahiabittamleek/{id}:
+    get:
+      summary: Détail Ijara Muntahia Bittamleek
+      operationId: getIjaraMuntahiaBittamleek
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IjaraMuntahiaBittamleek'
+
+  # --- ASSURANCE & GARANTIES SOCIALES ---
+  /takaful:
+    post:
+      summary: Créer un contrat Takaful
+      operationId: createTakaful
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Takaful'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Takaful'
+    get:
+      summary: Lister Takaful
+      operationId: listTakaful
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Takaful'
+  /takaful/{id}:
+    get:
+      summary: Détail Takaful
+      operationId: getTakaful
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Takaful'
+
+  /kafala:
+    post:
+      summary: Créer une Kafala
+      operationId: createKafala
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Kafala'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kafala'
+    get:
+      summary: Lister Kafala
+      operationId: listKafala
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Kafala'
+  /kafala/{id}:
+    get:
+      summary: Détail Kafala
+      operationId: getKafala
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kafala'
+
+  # --- WAQF (LE CŒUR DE DWPL) ---
+  /wakf:
+    post:
+      summary: Créer un Waqf (endowment perpétuel)
+      operationId: createWakf
+      description: |
+        Crée un bien de mainmorte numérique.
+        Conformément à la DWPL v2.0, ce contrat est irrévocable.
+        La propriété est transférée à la gouvernance décentralisée ou brûlée.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Wakf'
+      responses:
+        '201':
+          description: Waqf scellé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wakf'
+    get:
+      summary: Lister les Waqf
+      operationId: listWakf
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wakf'
+  /wakf/{id}:
+    get:
+      summary: Détail du Waqf
+      operationId: getWakf
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wakf'
+
+  # --- AUTRES CONTRATS (DONS, TESTAMENTS, MANDATS) ---
+  /hiba:
+    post:
+      summary: Créer un Hiba (don)
+      operationId: createHiba
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hiba'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hiba'
+    get:
+      summary: Lister Hiba
+      operationId: listHiba
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hiba'
+  /hiba/{id}:
+    get:
+      summary: Détail Hiba
+      operationId: getHiba
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hiba'
+
+  /wasiyyah:
+    post:
+      summary: Créer un Wasiyyah (testament)
+      operationId: createWasiyyah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Wasiyyah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wasiyyah'
+    get:
+      summary: Lister Wasiyyah
+      operationId: listWasiyyah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wasiyyah'
+  /wasiyyah/{id}:
+    get:
+      summary: Détail Wasiyyah
+      operationId: getWasiyyah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wasiyyah'
+
+  /wakalah:
+    post:
+      summary: Créer une Wakalah (agence)
+      operationId: createWakalah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Wakalah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wakalah'
+    get:
+      summary: Lister Wakalah
+      operationId: listWakalah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wakalah'
+  /wakalah/{id}:
+    get:
+      summary: Détail Wakalah
+      operationId: getWakalah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wakalah'
+
+  /jualah:
+    post:
+      summary: Créer un Jualah (récompense)
+      operationId: createJualah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Jualah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jualah'
+    get:
+      summary: Lister Jualah
+      operationId: listJualah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Jualah'
+  /jualah/{id}:
+    get:
+      summary: Détail Jualah
+      operationId: getJualah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jualah'
+
+  /amanah:
+    post:
+      summary: Créer un Amanah (dépôt de confiance)
+      operationId: createAmanah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amanah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amanah'
+    get:
+      summary: Lister Amanah
+      operationId: listAmanah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Amanah'
+  /amanah/{id}:
+    get:
+      summary: Détail Amanah
+      operationId: getAmanah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Amanah'
+
+  # --- DOCTRINES & CONDITIONS ---
+  /khiyar:
+    post:
+      summary: Enregistrer un Khiyar (option de révocation)
+      operationId: createKhiyar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Khiyar'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Khiyar'
+    get:
+      summary: Lister Khiyar
+      operationId: listKhiyar
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Khiyar'
+  /khiyar/{id}:
+    get:
+      summary: Détail Khiyar
+      operationId: getKhiyar
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Khiyar'
+
+  /ghirar:
+    post:
+      summary: Enregistrer un Ghirar (incertitude)
+      operationId: createGhirar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ghirar'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ghirar'
+    get:
+      summary: Lister Ghirar
+      operationId: listGhirar
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ghirar'
+  /ghirar/{id}:
+    get:
+      summary: Détail Ghirar
+      operationId: getGhirar
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ghirar'
+
+  /taawun:
+    post:
+      summary: Créer un Taawun (coopération)
+      operationId: createTaawun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Taawun'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Taawun'
+    get:
+      summary: Lister Taawun
+      operationId: listTaawun
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Taawun'
+  /taawun/{id}:
+    get:
+      summary: Détail Taawun
+      operationId: getTaawun
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Taawun'
+
+  # --- VARIANTES COOPÉRATIVES & SPÉCIALISÉES ---
+  /cooperativemudarabah:
+    post:
+      summary: Créer une Mudarabah coopérative
+      operationId: createCooperativeMudarabah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CooperativeMudarabah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CooperativeMudarabah'
+    get:
+      summary: Lister Mudarabah coopératives
+      operationId: listCooperativeMudarabah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CooperativeMudarabah'
+  /cooperativemudarabah/{id}:
+    get:
+      summary: Détail Mudarabah coopérative
+      operationId: getCooperativeMudarabah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CooperativeMudarabah'
+
+  /cooperativemusharakah:
+    post:
+      summary: Créer une Musharakah coopérative
+      operationId: createCooperativeMusharakah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CooperativeMusharakah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CooperativeMusharakah'
+    get:
+      summary: Lister Musharakah coopératives
+      operationId: listCooperativeMusharakah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CooperativeMusharakah'
+  /cooperativemusharakah/{id}:
+    get:
+      summary: Détail Musharakah coopérative
+      operationId: getCooperativeMusharakah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CooperativeMusharakah'
+
+  /customistisna:
+    post:
+      summary: Créer un Istisna personnalisé
+      operationId: createCustomIstisna
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomIstisna'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomIstisna'
+    get:
+      summary: Lister Istisna personnalisés
+      operationId: listCustomIstisna
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomIstisna'
+  /customistisna/{id}:
+    get:
+      summary: Détail Istisna personnalisé
+      operationId: getCustomIstisna
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomIstisna'
+
+  /specialhiba:
+    post:
+      summary: Créer un Hiba spécial
+      operationId: createSpecialHiba
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialHiba'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecialHiba'
+    get:
+      summary: Lister Hiba spéciaux
+      operationId: listSpecialHiba
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpecialHiba'
+  /specialhiba/{id}:
+    get:
+      summary: Détail Hiba spécial
+      operationId: getSpecialHiba
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpecialHiba'
+
+  /micromudarabah:
+    post:
+      summary: Créer une Micro-Mudarabah
+      operationId: createMicroMudarabah
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MicroMudarabah'
+      responses:
+        '201':
+          description: Créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MicroMudarabah'
+    get:
+      summary: Lister Micro-Mudarabah
+      operationId: listMicroMudarabah
+      responses:
+        '200':
+          description: Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MicroMudarabah'
+  /micromudarabah/{id}:
+    get:
+      summary: Détail Micro-Mudarabah
+      operationId: getMicroMudarabah
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Détail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MicroMudarabah'
+
+components:
+  schemas:
+    # --- SCHÉMAS DE BASE ---
+    Party:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "p_123e4567"
+        name:
+          type: string
+          example: "AbdElHakim ZOUAÏ"
+        type:
+          type: string
+          enum: [individual, corporate, dao]
+        walletAddress:
+          type: string
+          example: "0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B"
+        role:
+          type: string
+          enum: [rab_ul_mal, mudarib, entrepreneur, investor, guarantor]
+      required:
+        - id
+        - name
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: "Le ratio de profit ne peut excéder 90%"
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-07-07T10:30:00Z"
+      required:
+        - code
+        - message
+
+    # --- CONTRATS DE PARTENARIAT ---
+    Mudarabah:
+      type: object
+      properties:
+        id:
+          type: string
+        capitalProvider:
+          $ref: '#/components/schemas/Party'
+        entrepreneur:
+          $ref: '#/components/schemas/Party'
+        capitalAmount:
+          type: number
+          example: 100000.00
+        profitRatio:
+          type: number
+          description: Part du profit pour l'entrepreneur (ex: 0.4 = 40%)
+          example: 0.4
+        lossProvision:
+          type: string
+          enum: [capital_only, profit_forfeited]
+        status:
+          type: string
+          enum: [active, matured, terminated]
+        createdAt:
+          type: string
+          format: date-time
+
+    Musharakah:
+      type: object
+      properties:
+        id:
+          type: string
+        partners:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        totalCapital:
+          type: number
+          example: 500000.00
+        equityShares:
+          type: object
+          additionalProperties:
+            type: number
+          example: { "p1": 0.5, "p2": 0.5 }
+        profitDistributionRatio:
+          type: object
+          additionalProperties:
+            type: number
+        managementRights:
+          type: object
+          additionalProperties:
+            type: boolean
+        status:
+          type: string
+          enum: [active, dissolved]
+
+    Qirad:
+      allOf:
+        - $ref: '#/components/schemas/Mudarabah'
+        - type: object
+          properties:
+            tradeLicense:
+              type: string
+              description: Licence spécifique pour le commerce maritime
+
+    Musaqat:
+      type: object
+      properties:
+        id:
+          type: string
+        landOwner:
+          $ref: '#/components/schemas/Party'
+        farmer:
+          $ref: '#/components/schemas/Party'
+        orchardSize:
+          type: number
+          example: 10.5
+        cropType:
+          type: string
+          example: "Dattes"
+        harvestShare:
+          type: number
+          description: Part du fermier sur la récolte
+          example: 0.5
+        irrigationSchedule:
+          type: string
+
+    Muzaraah:
+      type: object
+      properties:
+        id:
+          type: string
+        landOwner:
+          $ref: '#/components/schemas/Party'
+        cultivator:
+          $ref: '#/components/schemas/Party'
+        landArea:
+          type: number
+        seedsProvidedBy:
+          type: string
+          enum: [landowner, cultivator, both]
+        produceShare:
+          type: number
+          description: Part du cultivateur
+          example: 0.4
+
+    Murabaha:
+      type: object
+      properties:
+        id:
+          type: string
+        seller:
+          $ref: '#/components/schemas/Party'
+        buyer:
+          $ref: '#/components/schemas/Party'
+        assetDescription:
+          type: string
+        costPrice:
+          type: number
+        markup:
+          type: number
+          description: Marge bénéficiaire (montant fixe ou %)
+        salePrice:
+          type: number
+        deferredPaymentPlan:
+          type: array
+          items:
+            type: object
+            properties:
+              dueDate:
+                type: string
+                format: date
+              amount:
+                type: number
+
+    Musawamah:
+      type: object
+      properties:
+        id:
+          type: string
+        seller:
+          $ref: '#/components/schemas/Party'
+        buyer:
+          $ref: '#/components/schemas/Party'
+        negotiatedPrice:
+          type: number
+        assetDescription:
+          type: string
+        deliveryDate:
+          type: string
+          format: date
+
+    Salam:
+      type: object
+      properties:
+        id:
+          type: string
+        buyer:
+          $ref: '#/components/schemas/Party'
+        seller:
+          $ref: '#/components/schemas/Party'
+        commodity:
+          type: string
+        quantity:
+          type: number
+        unitPrice:
+          type: number
+        totalPrice:
+          type: number
+        deliveryDate:
+          type: string
+          format: date
+
+    Istisna:
+      type: object
+      properties:
+        id:
+          type: string
+        manufacturer:
+          $ref: '#/components/schemas/Party'
+        purchaser:
+          $ref: '#/components/schemas/Party'
+        goodsSpecs:
+          type: string
+        price:
+          type: number
+        paymentSchedule:
+          type: array
+          items:
+            type: object
+            properties:
+              milestone:
+                type: string
+              amount:
+                type: number
+        deliveryDate:
+          type: string
+          format: date
+
+    BayAlSalam:
+      allOf:
+        - $ref: '#/components/schemas/Salam'
+        - type: object
+          properties:
+            collateral:
+              type: string
+
+    BayAlIstisna:
+      allOf:
+        - $ref: '#/components/schemas/Istisna'
+        - type: object
+          properties:
+            parallelContract:
+              type: boolean
+              description: Contrat parallèle pour le financement
+
+    Arbun:
+      type: object
+      properties:
+        id:
+          type: string
+        buyer:
+          $ref: '#/components/schemas/Party'
+        seller:
+          $ref: '#/components/schemas/Party'
+        earnestMoney:
+          type: number
+        totalPrice:
+          type: number
+        optionPeriod:
+          type: string
+          format: date-time
+
+    Tawarruq:
+      type: object
+      properties:
+        id:
+          type: string
+        client:
+          $ref: '#/components/schemas/Party'
+        financier:
+          $ref: '#/components/schemas/Party'
+        commodity:
+          type: string
+        purchasePrice:
+          type: number
+        salePrice:
+          type: number
+        deferredPaymentDate:
+          type: string
+          format: date
+
+    QardHasan:
+      type: object
+      properties:
+        id:
+          type: string
+        lender:
+          $ref: '#/components/schemas/Party'
+        borrower:
+          $ref: '#/components/schemas/Party'
+        amount:
+          type: number
+        repaymentDate:
+          type: string
+          format: date
+        collateral:
+          type: string
+          description: Objet en gage (Rahn)
+        status:
+          type: string
+          enum: [issued, repaid, defaulted]
+
+    Wadiah:
+      type: object
+      properties:
+        id:
+          type: string
+        depositor:
+          $ref: '#/components/schemas/Party'
+        custodian:
+          $ref: '#/components/schemas/Party'
+        asset:
+          type: string
+        value:
+          type: number
+        custodyFee:
+          type: number
+        status:
+          type: string
+          enum: [active, withdrawn]
+
+    Hawala:
+      type: object
+      properties:
+        id:
+          type: string
+        transferor:
+          $ref: '#/components/schemas/Party'
+        transferee:
+          $ref: '#/components/schemas/Party'
+        debtor:
+          $ref: '#/components/schemas/Party'
+        amount:
+          type: number
+        fee:
+          type: number
+
+    Rahn:
+      type: object
+      properties:
+        id:
+          type: string
+        pledgor:
+          $ref: '#/components/schemas/Party'
+        pledgee:
+          $ref: '#/components/schemas/Party'
+        collateral:
+          type: string
+        collateralValue:
+          type: number
+        debtAmount:
+          type: number
+        status:
+          type: string
+          enum: [active, released, forfeited]
+
+    Sukuk:
+      type: object
+      properties:
+        id:
+          type: string
+        issuer:
+          $ref: '#/components/schemas/Party'
+        assetType:
+          type: string
+        faceValue:
+          type: number
+        maturityDate:
+          type: string
+          format: date
+        underlyingContracts:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum: [issued, trading, matured]
+
+    SukukAlMudarabah:
+      allOf:
+        - $ref: '#/components/schemas/Sukuk'
+        - type: object
+          properties:
+            mudarabahPool:
+              type: string
+            expectedProfitRate:
+              type: number
+
+    SukukAlIjara:
+      allOf:
+        - $ref: '#/components/schemas/Sukuk'
+        - type: object
+          properties:
+            leasedAssets:
+              type: array
+              items:
+                type: string
+            rentalRate:
+              type: number
+
+    Ijara:
+      type: object
+      properties:
+        id:
+          type: string
+        lessor:
+          $ref: '#/components/schemas/Party'
+        lessee:
+          $ref: '#/components/schemas/Party'
+        asset:
+          type: string
+        rentAmount:
+          type: number
+        paymentSchedule:
+          type: array
+          items:
+            type: string
+            format: date
+        tenure:
+          type: string
+        status:
+          type: string
+          enum: [active, expired]
+
+    IjaraMuntahiaBittamleek:
+      allOf:
+        - $ref: '#/components/schemas/Ijara'
+        - type: object
+          properties:
+            optionToPurchase:
+              type: boolean
+            purchasePrice:
+              type: number
+            purchaseDate:
+              type: string
+              format: date
+
+    Takaful:
+      type: object
+      properties:
+        id:
+          type: string
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        contributions:
+          type: number
+        surplusDistribution:
+          type: string
+          enum: [pro_rata, discretionary]
+        claims:
+          type: array
+          items:
+            type: object
+            properties:
+              claimant:
+                type: string
+              amount:
+                type: number
+              approved:
+                type: boolean
+        status:
+          type: string
+          enum: [active, closed]
+
+    Kafala:
+      type: object
+      properties:
+        id:
+          type: string
+        guarantor:
+          $ref: '#/components/schemas/Party'
+        beneficiary:
+          $ref: '#/components/schemas/Party'
+        guaranteedAmount:
+          type: number
+        expiryDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [active, called, expired]
+
+    Wakf:
+      type: object
+      properties:
+        id:
+          type: string
+        founder:
+          $ref: '#/components/schemas/Party'
+        assetDetails:
+          type: string
+          description: Description du bien immobilisé (code, terrains, etc.)
+        beneficiaries:
+          type: array
+          items:
+            type: string
+          description: Communauté ou personnes bénéficiaires
+        governanceAddress:
+          type: string
+          description: Adresse de la DAO ou 0x000... (brûlée) selon DWPL
+          example: "0x0000000000000000000000000000000000000000"
+        licenseURI:
+          type: string
+          description: Lien IPFS du manifeste DWPL v2.0
+          example: "ipfs://QmWaqfDWPLv2ManifesteComplet"
+        isIrrevocable:
+          type: boolean
+          default: true
+        status:
+          type: string
+          enum: [sealed, managed, dissolved]
+
+    Hiba:
+      type: object
+      properties:
+        id:
+          type: string
+        donor:
+          $ref: '#/components/schemas/Party'
+        donee:
+          $ref: '#/components/schemas/Party'
+        asset:
+          type: string
+        value:
+          type: number
+        condition:
+          type: string
+
+    Wasiyyah:
+      type: object
+      properties:
+        id:
+          type: string
+        testator:
+          $ref: '#/components/schemas/Party'
+        executor:
+          $ref: '#/components/schemas/Party'
+        bequests:
+          type: array
+          items:
+            type: object
+            properties:
+              beneficiary:
+                type: string
+              share:
+                type: number
+        status:
+          type: string
+          enum: [draft, executed, contested]
+
+    Wakalah:
+      type: object
+      properties:
+        id:
+          type: string
+        principal:
+          $ref: '#/components/schemas/Party'
+        agent:
+          $ref: '#/components/schemas/Party'
+        scope:
+          type: string
+        fee:
+          type: number
+        status:
+          type: string
+          enum: [active, completed, revoked]
+
+    Jualah:
+      type: object
+      properties:
+        id:
+          type: string
+        offeror:
+          $ref: '#/components/schemas/Party'
+        reward:
+          type: number
+        taskDescription:
+          type: string
+        deadline:
+          type: string
+          format: date
+        claimant:
+          $ref: '#/components/schemas/Party'
+        status:
+          type: string
+          enum: [open, claimed, paid]
+
+    Amanah:
+      type: object
+      properties:
+        id:
+          type: string
+        trustor:
+          $ref: '#/components/schemas/Party'
+        trustee:
+          $ref: '#/components/schemas/Party'
+        asset:
+          type: string
+        preservationInstructions:
+          type: string
+
+    Khiyar:
+      type: object
+      properties:
+        id:
+          type: string
+        contractId:
+          type: string
+        optionHolder:
+          $ref: '#/components/schemas/Party'
+        optionType:
+          type: string
+          enum: [rescission, defect, condition]
+        expiryDate:
+          type: string
+          format: date
+
+    Ghirar:
+      type: object
+      properties:
+        id:
+          type: string
+        contractId:
+          type: string
+        uncertaintyDescription:
+          type: string
+        mitigationMeasures:
+          type: string
+
+    Taawun:
+      type: object
+      properties:
+        id:
+          type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        purpose:
+          type: string
+        contributions:
+          type: object
+          additionalProperties:
+            type: number
+        status:
+          type: string
+          enum: [formed, active, dissolved]
+
+    CooperativeMudarabah:
+      allOf:
+        - $ref: '#/components/schemas/Mudarabah'
+        - type: object
+          properties:
+            cooperativeId:
+              type: string
+            memberCap:
+              type: integer
+
+    CooperativeMusharakah:
+      allOf:
+        - $ref: '#/components/schemas/Musharakah'
+        - type: object
+          properties:
+            cooperativeId:
+              type: string
+            votingMechanism:
+              type: string
+              enum: [one_member_one_vote, proportional]
+
+    CustomIstisna:
+      allOf:
+        - $ref: '#/components/schemas/Istisna'
+        - type: object
+          properties:
+            customSpecsURI:
+              type: string
+            qualityAssurance:
+              type: string
+
+    SpecialHiba:
+      allOf:
+        - $ref: '#/components/schemas/Hiba'
+        - type: object
+          properties:
+            specialCondition:
+              type: string
+            shariahOverride:
+              type: string
+
+    MicroMudarabah:
+      allOf:
+        - $ref: '#/components/schemas/Mudarabah'
+        - type: object
+          properties:
+            microfinanceInstitution:
+              type: string
+            loanGroup:
+              type: string
+            disbursementSchedule:
+              type: array
+              items:
+                type: string
+                format: date
+
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.islamicfinance.dev/oauth
+          tokenUrl: https://auth.islamicfinance.dev/token
+          scopes:
+            financial.write: "Créer et modifier des contrats financiers"
+            partnership.read: "Consulter les contrats de partenariat"

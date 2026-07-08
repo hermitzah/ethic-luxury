@@ -1,0 +1,211 @@
+# ============================================================================
+# Islamic Shariah Validator (ISV) – cargo-deny Configuration
+# ============================================================================
+# Ce fichier configure cargo-deny pour analyser les dépendances du projet.
+# Il vérifie :
+#   - Les advisories de sécurité (RustSec)
+#   - Les licences (compatibilité avec DWPL-2.0)
+#   - Les doublons de dépendances
+#   - Les sources des crates (crates.io et exceptions Git)
+#
+# Installation : cargo install cargo-deny
+# Exécution   : cargo deny check
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Version de la configuration (obligatoire pour v2+)
+# ----------------------------------------------------------------------------
+version = 2
+
+# ----------------------------------------------------------------------------
+# Graph – Construction du graphe de dépendances
+# ----------------------------------------------------------------------------
+[graph]
+# Cibles pour lesquelles les vérifications sont effectuées
+targets = [
+    "x86_64-unknown-linux-gnu",
+    "wasm32-unknown-unknown",
+]
+
+# Collecte des métadonnées
+all-features = false
+no-default-features = false
+
+# Profondeur des features dans les graphes d'inclusion
+feature-depth = 1
+
+# ----------------------------------------------------------------------------
+# Output – Options de sortie
+# ----------------------------------------------------------------------------
+[output]
+feature-depth = 1
+
+# ----------------------------------------------------------------------------
+# Advisories – Sécurité et maintenance
+# ----------------------------------------------------------------------------
+[advisories]
+# Sources des bases de données d'advisories
+db-urls = ["https://github.com/rustsec/advisory-db"]
+
+# Politique pour les crates yanked (retirées du registre)
+yanked = "deny"
+
+# Politique pour les crates non maintenues
+unmaintained = "deny"
+
+# Advisories ignorés (avec justification)
+ignore = [
+    # GTK3/gnome – non utilisées directement, uniquement transitives
+    "RUSTSEC-2024-0348",
+    "RUSTSEC-2024-0349",
+    "RUSTSEC-2024-0350",
+    "RUSTSEC-2024-0351",
+    "RUSTSEC-2024-0352",
+    "RUSTSEC-2024-0353",
+    "RUSTSEC-2024-0359",
+    "RUSTSEC-2025-0001",
+    "RUSTSEC-2025-0021",
+    "RUSTSEC-2025-0056",
+    "RUSTSEC-2024-0335",
+
+    # fxhash – utilisé uniquement en développement
+    # "RUSTSEC-2025-0057",  # fxhash
+
+    # proc-macro-error – maintenu par dtolnay, pas de vulnérabilité critique
+    # "RUSTSEC-2024-0370",
+
+    # glib – uniquement si vous l'utilisez réellement
+    # "RUSTSEC-2024-0429",
+]
+
+# ----------------------------------------------------------------------------
+# Licenses – Politique de licences
+# ----------------------------------------------------------------------------
+[licenses]
+# Licences autorisées (SPDX)
+allow = [
+    # Copyleft fortes
+    "AGPL-1.0-only", "AGPL-1.0-or-later", "AGPL-3.0-only", "AGPL-3.0-or-later",
+    "GPL-1.0-only", "GPL-1.0-or-later", "GPL-2.0-only", "GPL-2.0-or-later",
+    "GPL-3.0-only", "GPL-3.0-or-later",
+    "LGPL-2.0-only", "LGPL-2.0-or-later", "LGPL-2.1-only", "LGPL-2.1-or-later",
+    "LGPL-3.0-only", "LGPL-3.0-or-later",
+    "MPL-1.0", "MPL-1.1", "MPL-2.0",
+
+    # Permissives
+    "Apache-1.0", "Apache-1.1", "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause", "BSD-3-Clause", "ISC", "MIT", "MIT-0", "MIT-Modern-Variant",
+
+    # Standards Unicode (ICU4X)
+    "Unicode-3.0",
+    "Unicode-DFS-2015", "Unicode-DFS-2016", "Unicode-TOU",
+
+    # Autres
+    "Zlib", "CC0-1.0", "0BSD", "Unlicense",
+    "BSL-1.0", "OpenSSL",
+]
+
+# Seuil de confiance pour la détection automatique des licences
+confidence-threshold = 0.8
+
+# Exceptions par crate (licences supplémentaires autorisées)
+exceptions = [
+    # Crates Nym – toutes sous GPL-3.0
+    { allow = ["GPL-3.0"], crate = "nym-api" },
+    { allow = ["GPL-3.0"], crate = "nym-gateway" },
+    { allow = ["GPL-3.0"], crate = "nym-mixnode" },
+    { allow = ["GPL-3.0"], crate = "nym-network-requester" },
+    { allow = ["GPL-3.0"], crate = "nym-validator-rewarder" },
+    { allow = ["GPL-3.0"], crate = "nym-ip-packet-router" },
+
+    # DWPL-2.0 (licence personnalisée du projet)
+    { allow = ["DWPL-2.0"], crate = "islamic_shariah_validator" },
+]
+
+# Clarification des licences pour les crates sans licence SPDX détectable
+[[licenses.clarify]]
+crate = "ring"
+expression = "MIT AND ISC AND OpenSSL"
+license-files = [
+    { path = "LICENSE", hash = 0xbd0eed23 },
+]
+
+[licenses.private]
+ignore = false
+registries = [
+    #"https://sekretz.com/registry"
+]
+
+# ----------------------------------------------------------------------------
+# Bans – Interdictions et avertissements
+# ----------------------------------------------------------------------------
+[bans]
+# Niveau de lint pour les versions multiples
+multiple-versions = "warn"
+
+# Niveau de lint pour les versions `*` (wildcards)
+wildcards = "allow"
+
+# Mise en évidence des doublons dans les graphes
+highlight = "all"
+
+# Features par défaut pour les crates du workspace
+workspace-default-features = "allow"
+
+# Features par défaut pour les crates externes
+external-default-features = "allow"
+
+# Crates interdites
+deny = [
+    # Interdire openssl – nous utilisons rustls
+    { name = "openssl" },
+]
+
+# Crates autorisées (à utiliser avec parcimonie)
+# allow = []
+
+# Sauter certains doublons (problèmes connus)
+skip = [
+    # "ansi_term@0.11.0",
+]
+
+# Sauter tout un arbre de dépendances (en dernier recours)
+skip-tree = [
+    # "ansi_term@0.11.0",
+]
+
+# Vérification des dépendances du workspace (à activer plus tard)
+# [bans.workspace-dependencies]
+# duplicates = "deny"
+# unused = "deny"
+
+# ----------------------------------------------------------------------------
+# Sources – Sources autorisées pour les crates
+# ----------------------------------------------------------------------------
+[sources]
+# Niveau de lint pour les registres inconnus
+unknown-registry = "warn"
+
+# Niveau de lint pour les dépôts Git inconnus
+unknown-git = "warn"
+
+# Registres autorisés
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+
+# Dépôts Git autorisés – ici on autorise le dépôt Indy (car c'est la seule dépendance Git)
+allow-git = ["https://github.com/hyperledger/indy-sdk"]
+
+# Organisations autorisées pour les sources Git
+[sources.allow-org]
+github = []
+gitlab = []
+bitbucket = []
+
+# ----------------------------------------------------------------------------
+# Diagnostics étendus (optionnel)
+# ----------------------------------------------------------------------------
+# [diagnostics]
+# # Afficher les graphes de dépendances en cas d'erreur
+# graph = true
+# ============================================================================

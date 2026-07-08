@@ -1,0 +1,81 @@
+# ============================================================================
+# Islamic Shariah Validator (ISV) – Sous-modules Git
+# ============================================================================
+# Ce fichier liste les sous-modules utilisés par le projet ISV pour les
+# intégrations avec les SDKs de Hyperledger (Fabric, Indy) et les outils
+# annexes nécessaires aux tests et au développement.
+#
+# Toutes les dépendances Rust sont gérées via Cargo (crates.io), mais ces
+# sous-modules permettent de travailler localement sur les SDKs pour :
+#   - Tester des modifications avant de les proposer en amont (upstream)
+#   - Développer des fonctionnalités nécessitant des versions non publiées
+#   - Exécuter des tests d'intégration avec un réseau Fabric/Indy local
+#
+# Pour initialiser tous les sous-modules :
+#   git submodule update --init --recursive
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Hyperledger Fabric SDK Rust
+# ----------------------------------------------------------------------------
+# SDK officiel pour interagir avec les réseaux Hyperledger Fabric.
+# Utilisé pour les tests d'intégration et le développement des chaincodes.
+# Fork personnel : https://gitlab.com/ethikluxry/fabric-sdk-rust
+# Dépôt original : https://github.com/hyperledger/fabric-sdk-rust
+[submodule "modules/fabric-sdk"]
+    path = modules/fabric-sdk
+    url = https://gitlab.com/ethikluxry/fabric-sdk-rust.git
+    branch = main
+
+# ----------------------------------------------------------------------------
+# Hyperledger Indy SDK (Rust bindings) – Optionnel
+# ----------------------------------------------------------------------------
+# SDK pour Hyperledger Indy (identités décentralisées, credentials, DIDs).
+# Activer via la feature "indy" dans Cargo.toml.
+# Dépôt officiel : https://github.com/hyperledger/indy-sdk
+# Note : les bindings Rust ne sont pas encore officiellement publiés.
+# [submodule "modules/indy-sdk"]
+#     path = modules/indy-sdk
+#     url = https://github.com/hyperledger/indy-sdk.git
+#     branch = main
+
+# ----------------------------------------------------------------------------
+# Fabric Test Network – Pour les tests d'intégration locaux
+# ----------------------------------------------------------------------------
+# Réseau de test officiel d'Hyperledger Fabric (compose, chaincodes).
+# Utilisé pour exécuter les tests d'intégration avec Fabric.
+# Dépôt original : https://github.com/hyperledger/fabric-samples
+# [submodule "modules/fabric-samples"]
+#     path = modules/fabric-samples
+#     url = https://github.com/hyperledger/fabric-samples.git
+#     branch = main
+
+# ----------------------------------------------------------------------------
+# OpenAPI Generator – Génération de clients SDK
+# ----------------------------------------------------------------------------
+# Outil pour générer des clients SDK à partir de la spécification OpenAPI.
+# Plugin asdf : git@gitlab.com:calpine/asdf-openapi-generator.git
+# [submodule "modules/openapi-generator"]
+#     path = modules/openapi-generator
+#     url = git@gitlab.com:calpine/asdf-openapi-generator.git
+#     # Pas de branche : suit le commit enregistré
+
+# ----------------------------------------------------------------------------
+# Exemples de contrats – Tests de validation
+# ----------------------------------------------------------------------------
+# Collection d'exemples de contrats financiers pour valider la conformité
+# Shariah. Ce sous-module n'est pas encore créé – exemple pour l'avenir.
+# [submodule "examples/contracts"]
+#     path = examples/contracts
+#     url = git@gitlab.com:ethikluxry/isv-example-contracts.git
+#     branch = main
+# ============================================================================
+
+# Note importante :
+# - Les sous-modules commentés ne sont pas activés par défaut.
+# - Pour les activer, décommentez la section correspondante et exécutez :
+#   git submodule update --init --recursive
+# - Pour mettre à jour un sous-module vers la dernière version :
+#   cd modules/<nom> && git checkout <branche> && git pull origin <branche>
+#   cd ../.. && git add modules/<nom> && git commit -m "update <nom>"
+# ============================================================================

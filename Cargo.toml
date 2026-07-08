@@ -1,0 +1,162 @@
+[package]
+name = "islamic_shariah_validator"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85.0"  # MSRV – stable at time of writing
+authors = ["AbdElHakim ZOUAÏ <abdelhakimzouai@gmail.com>"]
+description = "Validateur Shariah & DWPL pour Hyperledger Fabric/Indy"
+license = "DWPL-2.0"  # Custom licence – see LICENSE file
+repository = "https://gitlab.com/ethikluxry/islamic_shariah_validator"
+readme = "README.md"
+keywords = ["shariah", "islamic-finance", "hyperledger", "blockchain", "validator"]
+categories = ["cryptography", "finance", "web-programming"]
+exclude = [
+    ".gitignore",
+    ".gitlab/",
+    "tests/fixtures/",
+    "*.log",
+]
+
+# Docs.rs metadata
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+# ---------------------------------------------------------------------------
+# Binary targets
+# ---------------------------------------------------------------------------
+[[bin]]
+name = "validator-cli"
+path = "src/bin/cli.rs"
+
+# ---------------------------------------------------------------------------
+# Library entry point
+# ---------------------------------------------------------------------------
+[lib]
+path = "src/lib.rs"
+
+# ---------------------------------------------------------------------------
+# Features
+# ---------------------------------------------------------------------------
+[features]
+default = ["fabric", "wasm"]        # Indy is optional (not default)
+wasm = ["wasm-bindgen", "getrandom", "serde-wasm-bindgen"]
+fabric = ["dep:fabric-sdk", "dep:protobuf"]
+indy = ["dep:indy-sdk", "dep:indy-credx", "dep:indy-vdr"]
+full = ["fabric", "indy", "wasm"]
+
+# ---------------------------------------------------------------------------
+# Core dependencies
+# ---------------------------------------------------------------------------
+[dependencies]
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Logging
+log = "0.4"
+env_logger = "0.10"
+
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+
+# ---------------------------------------------------------------------------
+# Optional dependencies (feature-gated)
+# ---------------------------------------------------------------------------
+# WASM
+wasm-bindgen = { version = "0.2", optional = true }
+getrandom = { version = "0.2", optional = true }
+serde-wasm-bindgen = { version = "0.5", optional = true }
+
+# Hyperledger Fabric – **local submodule** (must be initialised)
+fabric-sdk = { path = "modules/fabric-sdk", optional = true }
+protobuf = { version = "2.25", optional = true }
+
+# Hyperledger Indy – still from git (optional)
+indy-sdk = { git = "https://github.com/hyperledger/indy-sdk", optional = true, features = ["rust_build"] }
+indy-credx = { version = "0.1", optional = true }
+indy-vdr = { version = "0.1", optional = true }
+
+# ---------------------------------------------------------------------------
+# Crypto & identity
+# ---------------------------------------------------------------------------
+ed25519-dalek = "2.0"
+rand = "0.8"
+sha2 = "0.10"
+did-method-key = "0.1"
+ssi = { version = "0.7", features = ["did-core", "jwk", "ed25519"] }
+
+# ---------------------------------------------------------------------------
+# AAOIFI calculations (high precision)
+# ---------------------------------------------------------------------------
+num-bigint = "0.4"
+num-rational = "0.4"
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+clap = { version = "4.4", features = ["derive"] }
+chrono = "0.4"
+
+# ---------------------------------------------------------------------------
+# Dev dependencies
+# ---------------------------------------------------------------------------
+[dev-dependencies]
+tempfile = "3.5"
+mockall = "0.11"
+tokio-test = "0.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+
+# ---------------------------------------------------------------------------
+# Benchmarks
+# ---------------------------------------------------------------------------
+[[bench]]
+name = "validator_bench"
+path = "benches/validator_bench/main.rs"
+harness = false
+
+# ---------------------------------------------------------------------------
+# WASM target specific
+# ---------------------------------------------------------------------------
+[target.wasm32-unknown-unknown.dependencies]
+wasm-bindgen = { version = "0.2" }
+getrandom = { version = "0.2", features = ["js"] }
+
+# ---------------------------------------------------------------------------
+# Compilation profiles
+# ---------------------------------------------------------------------------
+[profile.dev]
+opt-level = 0
+debug = true
+lto = false
+debug-assertions = true
+codegen-units = 256
+panic = "unwind"
+incremental = true
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+codegen-units = 1
+strip = true
+overflow-checks = false
+panic = "abort"
+incremental = false
+
+[profile.test]
+inherits = "dev"
+opt-level = 1
+debug = true
+codegen-units = 8
+
+[profile.bench]
+opt-level = 3
+debug = false
+lto = true
+codegen-units = 1

@@ -1,0 +1,443 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Encodage et langues ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+% --- Mise en page et typographie ---
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{microtype}
+
+% --- Packages fonctionnels ---
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{amssymb}
+\usepackage{marvosym}
+\usepackage{hyperref}
+
+% --- Configuration des hyperliens ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkgray,
+    urlcolor=blue,
+    pdftitle={Guide du don à une association en Afrique},
+    pdfauthor={Abd El Hakim ZOUAÏ (Cutopia)},
+    pdfsubject={Actions nécessaires pour un don sécurisé et optimisé fiscalement}
+}
+
+% --- Couleurs personnalisées ---
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{darkgray}{gray}{0.4}
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{boxblue}{rgb}{0.85, 0.92, 0.95}
+\definecolor{cutopia}{rgb}{0.85, 0.35, 0.55}
+\definecolor{orangebox}{rgb}{0.98, 0.75, 0.5}
+\definecolor{redalert}{rgb}{0.8, 0.2, 0.2}
+
+% --- Style des sections ---
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{darkgray}}
+{\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{darkgray}}
+{\thesubsection}{1em}{}
+
+% --- Environnements ---
+\newtcolorbox{resumebox}{
+    colback=lightgray,
+    colframe=darkgray,
+    arc=0mm,
+    boxrule=0.5pt,
+    boxsep=5pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt
+}
+
+\newtcolorbox{helpbox}{
+    colback=boxblue,
+    colframe=blue!50!black,
+    arc=2mm,
+    boxrule=0.8pt,
+    boxsep=5pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+\newtcolorbox{alertbox}{
+    colback=redalert!10!white,
+    colframe=redalert,
+    arc=2mm,
+    boxrule=1pt,
+    boxsep=5pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    fonttitle=\bfseries,
+    title={[!] Alerte}
+}
+
+\newtcolorbox{conseilbox}{
+    colback=cutopia!8!white,
+    colframe=cutopia,
+    arc=3mm,
+    boxrule=1.2pt,
+    boxsep=6pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt,
+    fonttitle=\bfseries\large,
+    title={[*] Conseil gratuit Cutopia [*]}
+}
+
+% --- Symboles simples sans fontawesome ---
+\newcommand{\cmark}{\textcolor{darkgreen}{\textbf{\checkmark}}}
+\newcommand{\arrow}{\textcolor{darkgreen}{\textbf{$\rightarrow$}}}
+\newcommand{\heart}{\textcolor{cutopia}{\textbf{$\heartsuit$}}}
+\newcommand{\starred}{\textcolor{darkgray}{\textbf{$\star$}}}
+\newcommand{\euro}{\textcolor{darkgreen}{\textbf{\EUR}}}
+\newcommand{\info}{\textcolor{blue}{\textbf{(i)}}}
+
+% --- Listes personnalisées ---
+\newlist{checklist}{itemize}{2}
+\setlist[checklist]{label=\cmark, leftmargin=*}
+
+\newlist{arrowlist}{itemize}{2}
+\setlist[arrowlist]{label=\arrow, leftmargin=*}
+
+\newlist{heartlist}{itemize}{2}
+\setlist[heartlist]{label=\heart, leftmargin=*}
+
+\newlist{starredlist}{itemize}{2}
+\setlist[starredlist]{label=\starred, leftmargin=*}
+
+% --- Début du document ---
+\begin{document}
+
+% --- En-tête ---
+\begin{center}
+    {\Huge \textbf{Guide complet du don sécurisé}} \\[0.3cm]
+    {\Large \textbf{Vers une association en Afrique}} \\[0.3cm]
+    {\large \textcolor{darkgray}{Pour les donneurs européens}} \\[0.5cm]
+    \rule{0.7\textwidth}{0.4pt} \\[0.3cm]
+    \textit{Un accompagnement étape par étape pour un don transparent, efficace et optimisé fiscalement}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- Table des matières ---
+\tableofcontents
+\newpage
+
+% --- Introduction ---
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+Ce guide a été conçu pour vous accompagner dans toutes les étapes de votre don à une association en Afrique. Que vous soyez un donateur occasionnel ou régulier, vous trouverez ici les informations nécessaires pour agir en toute sécurité et maximiser l'impact de votre générosité.
+
+\vspace{0.3cm}
+\begin{resumebox}
+    \centering
+    \textbf{\Large Ce que vous trouverez dans ce guide} \\[0.3cm]
+    \begin{tabular}{ll}
+        \cmark & Les vérifications préalables à tout don \\
+        \euro & Les modes de transfert les plus adaptés \\
+        \starred & La sécurisation de votre don \\
+        \info & La défiscalisation (selon votre pays) \\
+        \arrow & Les documents à exiger de l'association \\
+        \heart & Une assistance gratuite via le réseau Cutopia
+    \end{tabular}
+\end{resumebox}
+\vspace{0.3cm}
+
+\newpage
+
+% --- Section 1 ---
+\section{Vérifications préalables obligatoires}
+
+Avant tout transfert d'argent, vous devez impérativement vous assurer de la légitimité et de la fiabilité de l'association destinataire.
+
+\subsection{Identifier clairement l'association}
+\begin{checklist}
+    \item Nom exact de l'association (tel qu'enregistré officiellement)
+    \item Pays d'intervention (peut être différent du pays d'enregistrement)
+    \item Objet social principal : santé, éducation, environnement, droits humains, etc.
+    \item Année de création et ancienneté des dirigeants
+\end{checklist}
+
+\subsection{Vérifier la légalité dans son pays d'origine}
+\begin{checklist}
+    \item L'association est-elle enregistrée auprès des autorités compétentes ?
+    \begin{itemize}
+        \item En Afrique francophone : récépissé ministériel (Intérieur ou Administration territoriale)
+        \item En Afrique anglophone : certificate of incorporation
+        \item En Afrique lusophone : registro da associação
+    \end{itemize}
+    \item Possède-t-elle un numéro d'identification fiscale (NIF) ?
+    \item Est-elle à jour dans ses déclarations annuelles ?
+\end{checklist}
+
+\subsection{Rechercher des avis et rapports de transparence}
+\begin{checklist}
+    \item Consulter le rapport annuel de l'association (au moins les deux derniers exercices)
+    \item Vérifier sa présence sur des plateformes reconnues :
+    \begin{itemize}
+        \item GiveWell (recommandation basée sur l'efficacité démontrée)
+        \item GuideStar (transparence financière)
+        \item GlobalGiving (projets vérifiés)
+    \end{itemize}
+    \item Rechercher des articles de presse ou études de cas impliquant l'association
+\end{checklist}
+
+\subsection{Contacter directement l'association}
+\begin{arrowlist}
+    \item Envoyez un courriel ou appelez avant de donner
+    \item Posez des questions précises
+    \item Évaluez la qualité et la rapidité de leur réponse
+\end{arrowlist}
+
+\begin{helpbox}
+    \centering
+    \info\ \textbf{Bon à savoir} \\
+    Une association fiable et bien structurée répondra dans un délai raisonnable (48 \`a 72 heures) et fournira sans difficulté les informations demandées.
+\end{helpbox}
+
+\newpage
+
+% --- Section 2 ---
+\section{Choix du mode de transfert}
+
+\subsection{Comparatif des modes de transfert}
+
+\begin{tcolorbox}[colback=lightgray, colframe=darkgray, title=Tableau comparatif]
+    \small
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{3cm}|p{2cm}|p{2cm}|p{2.5cm}|p{2cm}|}
+        \hline
+        \textbf{Mode} & \textbf{Frais} & \textbf{Délai} & \textbf{Sécurité} & \textbf{Recommandation} \\
+        \hline
+        Virement SWIFT & 20-50 € + change & 2-5 jours & Élevée & Excellent \\
+        \hline
+        Wise (TransferWise) & 0.5-1\% & 1-2 jours & Élevée & Excellent \\
+        \hline
+        Revolut & 0-1\% & Instantané & Élevée & Très bon \\
+        \hline
+        Plateforme (GlobalGiving) & 5-15\% & Variable & Élevée & Bon \\
+        \hline
+        Mobile Money & 1-5\% + change & Instantané & Moyenne & Moyen \\
+        \hline
+        Western Union & 5-15\% & Instantané & Faible & À éviter \\
+        \hline
+        Espèces & 0\% & Instantané & Très faible & À éviter \\
+        \hline
+    \end{tabular}
+\end{tcolorbox}
+
+\subsection{Détails par mode de transfert}
+
+\subsubsection{Virement bancaire international (SWIFT)}
+\begin{arrowlist}
+    \item \textbf{À demander à l'association :} IBAN, code BIC/SWIFT
+    \item \textbf{Vérification :} Le nom du titulaire doit être celui de l'association
+    \item \textbf{À savoir :} Les frais intermédiaires peuvent s'ajouter
+\end{arrowlist}
+
+\subsubsection{Virement SEPA}
+\begin{arrowlist}
+    \item \textbf{Condition :} Compte dans une banque de la zone SEPA
+    \item \textbf{Avantage :} Frais généralement nuls
+\end{arrowlist}
+
+\subsubsection{Plateformes de don sécurisées}
+\begin{arrowlist}
+    \item GlobalGiving : projets vérifiés
+    \item HelloAsso : pour les projets portés par des associations françaises
+\end{arrowlist}
+
+\begin{alertbox}
+    \centering
+    \textbf{Modes à éviter absolument} \\
+    \vspace{0.2cm}
+    Western Union, envoi d'espèces, compte bancaire personnel
+\end{alertbox}
+
+\newpage
+
+% --- Section 3 ---
+\section{Optimisation des frais et du change}
+
+\subsection{Comparer les frais bancaires}
+\begin{starredlist}
+    \item Vérifiez la grille tarifaire de votre banque
+    \item Attention aux frais cachés (commission fixe + frais de change)
+\end{starredlist}
+
+\subsection{Utiliser un service de transfert à bas coût}
+\begin{starredlist}
+    \item \textbf{Wise :} Recommandé, frais transparents (0.5-1\%)
+    \item \textbf{Revolut :} Très compétitif
+\end{starredlist}
+
+\subsection{Choisir la devise d'envoi}
+\begin{starredlist}
+    \item Demandez à l'association quelle devise est la plus pratique
+    \item Envoi en euros ou dollars : souvent avantageux
+\end{starredlist}
+
+\newpage
+
+% --- Section 4 ---
+\section{Sécurisation du don}
+
+\begin{checklist}
+    \item \textbf{Ne jamais donner sans reçu}
+    \item \textbf{Exiger un document officiel}
+    \item \textbf{Protection des données personnelles}
+    \item \textbf{Signaler tout comportement suspect}
+\end{checklist}
+
+\subsection{Reçu fiscal et attestation}
+\begin{arrowlist}
+    \item L'association doit fournir une attestation avec :
+    \begin{itemize}
+        \item Son nom, adresse et numéro d'enregistrement
+        \item Votre nom et adresse
+        \item La date et le montant
+    \end{itemize}
+\end{arrowlist}
+
+\newpage
+
+% --- Section 5 ---
+\section{Défiscalisation selon votre pays}
+
+\subsection{France}
+\begin{heartlist}
+    \item Taux : 66\% du don (limite de 20\% du revenu)
+    \item L'association doit avoir un relais fiscal en France
+\end{heartlist}
+
+\subsection{Belgique}
+\begin{heartlist}
+    \item Taux : 45\% du don (minimum 40 €)
+    \item L'association doit être reconnue
+\end{heartlist}
+
+\subsection{Suisse}
+\begin{heartlist}
+    \item Taux variable selon les cantons (20-30\%)
+\end{heartlist}
+
+\newpage
+
+% --- Section 6 ---
+\section{Suivi après le don}
+
+\subsection{Conservation des justificatifs}
+\begin{checklist}
+    \item Courriel de confirmation
+    \item Relevé bancaire
+    \item Attestation de don
+\end{checklist}
+
+\subsection{Demander un retour d'impact}
+\begin{arrowlist}
+    \item Envoyez une demande 3 à 6 mois après le don
+    \item Demandez un rapport, des photos, des indicateurs
+\end{arrowlist}
+
+\newpage
+
+% --- Section 7 ---
+\section{Liste des documents à exiger}
+
+\begin{tcolorbox}[colback=darkgreen!5!white, colframe=darkgreen!75!black, title=\textbf{Catégorie 1 : Preuve d'existence légale}]
+\begin{starredlist}
+    \item Statuts de l'association
+    \item Récépissé de déclaration
+    \item Numéro d'Identification Fiscale (NIF)
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Catégorie 2 : Gouvernance et transparence}]
+\begin{starredlist}
+    \item Procès-verbal de la dernière AG
+    \item Composition du Bureau
+    \item Rapports d'activité
+    \item États financiers annuels
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=orange!5!white, colframe=orange!75!black, title=\textbf{Catégorie 3 : Documents du projet}]
+\begin{starredlist}
+    \item Dossier de présentation
+    \item Budget prévisionnel
+    \item Rapports d'exécution
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=darkgray!5!white, colframe=darkgray!75!black, title=\textbf{Catégorie 4 : Documents bancaires}]
+\begin{starredlist}
+    \item RIB officiel au nom de l'association
+    \item Lettre officielle de demande
+    \item Convention de partenariat
+\end{starredlist}
+\end{tcolorbox}
+
+\begin{alertbox}
+    \centering
+    \textbf{Signal d'alarme} \\
+    Si l'association refuse de fournir ces documents, suspendez le transfert.
+\end{alertbox}
+
+\newpage
+
+% --- Section 8 ---
+\section*{Conseil gratuit Cutopia}
+\addcontentsline{toc}{section}{Conseil gratuit Cutopia}
+
+\begin{conseilbox}
+    \centering
+    {\Large \textbf{Abd El Hakim ZOUAÏ}} \\[0.2cm]
+    \textit{Conseiller bénévole chez Cutopia} \\[0.3cm]
+    
+    Consultation gratuite pour :
+    \begin{starredlist}
+        \item Vérifier la légalité d'une association africaine
+        \item Structurer un don transfrontalier sécurisé
+        \item Obtenir un modèle de convention de partenariat
+    \end{starredlist}
+    
+    \vspace{0.3cm}
+    \rule{0.7\textwidth}{0.3pt} \\[0.3cm]
+    \textbf{Contact :} \\
+    \texttt{abdelhakimzouai@gmail.com} \\[0.2cm]
+    \texttt{+213 672 41 01 92}
+\end{conseilbox}
+
+\newpage
+
+% --- Checklist finale ---
+\section*{Checklist finale}
+\addcontentsline{toc}{section}{Checklist finale}
+
+\begin{tcolorbox}[colback=lightgray, colframe=darkgray]
+    \begin{checklist}
+        \item[$\square$] J'ai vérifié l'existence légale de l'association
+        \item[$\square$] J'ai analysé ses états financiers
+        \item[$\square$] J'ai choisi un mode de transfert sécurisé
+        \item[$\square$] J'ai obtenu un RIB au nom de l'association
+        \item[$\square$] J'ai conservé tous les justificatifs
+    \end{checklist}
+\end{tcolorbox}
+
+\vspace{1cm}
+\begin{center}
+    \heart\ \textcolor{cutopia}{\textbf{Votre don peut changer des vies s'il est bien fait.}} \ \heart
+\end{center}
+
+\vspace{0.5cm}
+\begin{center}
+    \rule{0.6\textwidth}{0.3pt} \\[0.3cm]
+    {\small \textcolor{darkgray}{Guide r\'edig\'e avec le soutien d'\textbf{Abd El Hakim ZOUA\"I (Cutopia)} pour \textbf{Ethic Luxury}.}} \\
+    \small{\textcolor{darkgray}{\texttt{abdelhakimzouai@gmail.com} \quad | \quad \texttt{+213 672 41 01 92}}}
+\end{center}
+
+\end{document}

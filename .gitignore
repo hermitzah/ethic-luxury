@@ -1,0 +1,134 @@
+# ============================================================================
+# Islamic Shariah Validator – .gitignore
+# ============================================================================
+# Ce fichier ignore les artefacts de compilation, les fichiers temporaires,
+# les configurations personnelles, et tout ce qui ne doit pas être versionné.
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Rust / Cargo
+# ----------------------------------------------------------------------------
+/target/
+**/target/
+*.rs.bk
+*.pdb
+*.dSYM
+*.prof
+*.gcda
+*.gcno
+
+# Fichiers Cargo.lock (pour les bibliothèques, on le commit parfois ; ici on l'ignore)
+# Si vous voulez le commit, commentez la ligne suivante.
+Cargo.lock
+
+# ----------------------------------------------------------------------------
+# IDE et éditeurs
+# ----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.classpath
+.project
+.settings/
+*.code-workspace
+*.code-snippets
+
+# ----------------------------------------------------------------------------
+# Système d’exploitation
+# ----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
+
+# ----------------------------------------------------------------------------
+# Variables d’environnement et secrets
+# ----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.local.env
+*.secret
+
+# ----------------------------------------------------------------------------
+# Documentation générée
+# ----------------------------------------------------------------------------
+docs/_build/
+docs/book/
+target/doc/
+*.pdf
+# Si vous versionnez certains PDF, commentez la ligne ci‑dessus.
+
+# ----------------------------------------------------------------------------
+# Tests et couverture
+# ----------------------------------------------------------------------------
+coverage/
+*.coverage
+*.profdata
+*.profraw
+*.gcov
+*.lcov
+htmlcov/
+*.tarpaulin*
+*.llvm-cov*
+
+# ----------------------------------------------------------------------------
+# WASM / JavaScript (si vous générez des bindings)
+# ----------------------------------------------------------------------------
+pkg/
+*.wasm
+*.js
+*.d.ts
+*.ts
+*.wasm-bindgen*
+# Mais conservez les sources si vous les écrivez à la main.
+
+# ----------------------------------------------------------------------------
+# Sous-modules – leur contenu est géré par git submodule, mais on ignore les
+# artefacts de build à l’intérieur.
+# ----------------------------------------------------------------------------
+modules/*/target/
+modules/*/.idea/
+modules/*/.vscode/
+modules/*/Cargo.lock  # si vous utilisez des workspaces
+
+# ----------------------------------------------------------------------------
+# Fichiers temporaires et logs
+# ----------------------------------------------------------------------------
+*.log
+*.tmp
+*.temp
+logs/
+*.pid
+*.sock
+*.socket
+
+# ----------------------------------------------------------------------------
+# Autres dossiers non‑source (à adapter selon votre besoin)
+# ----------------------------------------------------------------------------
+# Si `docs/` contient des sources LaTeX que vous voulez versionner, gardez‑les.
+# Si ce sont des fichiers générés, vous pouvez les ignorer :
+# docs/*/build/
+# docs/*/dist/
+
+# Ignorer les fichiers de flyers générés (si vous ne les versionnez pas)
+# docs/flayer/public/
+
+# ----------------------------------------------------------------------------
+# Fichiers de build propres à la machine
+# ----------------------------------------------------------------------------
+*.local
+*.local.*
+*.user
+*.user.*
+
+# ----------------------------------------------------------------------------
+# Nettoyage de certains dossiers suspects (à ajuster)
+# ----------------------------------------------------------------------------
+# Si vous avez des dossiers comme `module/` (singulier) qui contiennent des
+# artefacts, vous pouvez les ignorer. Ici, on laisse `module/` et `modules/`
+# pour les sous-modules, mais on ignore leurs cibles.

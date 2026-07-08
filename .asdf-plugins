@@ -1,0 +1,85 @@
+# ============================================================================
+# Islamic Shariah Validator (ISV) – Plugins asdf
+# ============================================================================
+# Ce fichier liste tous les plugins nécessaires pour l'environnement de
+# développement du projet ISV. Les versions sont définies dans .tool-versions.
+#
+# Pour installer tous les plugins : asdf plugin add <nom> <url>
+# Pour installer toutes les versions : asdf install
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Langages principaux
+# ----------------------------------------------------------------------------
+
+# Rust – cœur du validateur (MSRV 1.70+)
+rust    https://github.com/code-lever/asdf-rust.git
+
+# ----------------------------------------------------------------------------
+# Utilitaires pour le développement Rust (commentés – à activer si besoin)
+# ----------------------------------------------------------------------------
+
+# Cargo-make – task runner pour Rust (alternative à Makefile)
+# cargo-make s'installe via cargo, pas via asdf :
+#   cargo install cargo-make
+# Si vous préférez un plugin asdf, il n'existe pas officiellement.
+
+# ----------------------------------------------------------------------------
+# Utilitaires généraux (scripts, CI/CD)
+# ----------------------------------------------------------------------------
+
+# jq – manipulateur JSON (utile pour traiter les fichiers JSON de test)
+jq      https://github.com/azmcode/asdf-jq.git
+
+# yq – manipulateur YAML (pour les fichiers de configuration)
+yq      https://github.com/azmcode/asdf-yq.git
+
+# ShellCheck – analyseur de scripts shell (pour les scripts de build)
+shellcheck https://github.com/luizm/asdf-shellcheck.git
+
+# shfmt – formateur de scripts shell (pour un style cohérent)
+shfmt   https://github.com/luizm/asdf-shfmt.git
+
+# ----------------------------------------------------------------------------
+# Gestion de versions et dépendances (optionnels)
+# ----------------------------------------------------------------------------
+
+# OpenAPI Generator – si vous générez un client SDK depuis une spec OpenAPI
+openapi-generator   git@gitlab.com:calpine/asdf-openapi-generator.git
+
+# Docker – pour exécuter des services de test (PostgreSQL, Redis, etc.)
+docker  https://github.com/asdf-community/asdf-docker.git
+
+# ----------------------------------------------------------------------------
+# Outils pour la documentation et la présentation (optionnels)
+# ----------------------------------------------------------------------------
+
+# mdBook – pour générer une documentation interactive
+mdbook  https://github.com/asdf-community/asdf-mdbook.git
+
+# ----------------------------------------------------------------------------
+# CI/CD (si vous utilisez GitLab CI ou GitHub Actions, ces outils peuvent
+# être utiles pour les tests locaux)
+# ----------------------------------------------------------------------------
+
+# act – exécuter les workflows GitHub Actions en local
+act     https://github.com/asdf-community/asdf-act.git
+
+# gitlab-ci-local – exécuter les pipelines GitLab CI en local
+gitlab-ci-local  https://github.com/asdf-community/asdf-gitlab-ci-local.git
+
+# ----------------------------------------------------------------------------
+# Note sur les outils Rust non disponibles via asdf
+# ----------------------------------------------------------------------------
+# Les outils suivants s'installent via cargo et n'ont pas de plugin asdf :
+#   - cargo-deny      : cargo install cargo-deny
+#   - cargo-audit     : cargo install cargo-audit
+#   - cargo-outdated  : cargo install cargo-outdated
+#   - cargo-tree      : cargo install cargo-tree
+#   - cargo-expand    : cargo install cargo-expand
+#   - cargo-watch     : cargo install cargo-watch
+#   - cargo-tarpaulin : cargo install cargo-tarpaulin (coverage)
+#   - cargo-llvm-cov  : cargo install cargo-llvm-cov (coverage)
+#   - just            : cargo install just (ou via asdf ? non, just n'est pas en Rust)
+# Il est recommandé de les installer manuellement ou via un script.
+# ============================================================================

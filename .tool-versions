@@ -1,0 +1,54 @@
+# ============================================================================
+# Islamic Shariah Validator (ISV) – Versions des outils (asdf)
+# ============================================================================
+# Ce fichier définit les versions exactes des outils utilisés par le projet.
+# Il est utilisé par asdf pour installer les bonnes versions sur toutes les
+# machines des contributeurs et dans les pipelines CI/CD.
+#
+# Pour installer toutes les versions : asdf install
+# Pour ajouter un nouvel outil : asdf plugin add <nom> <url> (voir .asdf-plugins)
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Langage principal
+# ----------------------------------------------------------------------------
+
+# Rust – Le cœur du validateur
+# MSRV (Minimal Supported Rust Version) = 1.70
+# Version stable recommandée (testée en CI) :
+rust 1.96.0
+
+# ----------------------------------------------------------------------------
+# Utilitaires pour les scripts et la manipulation de données
+# ----------------------------------------------------------------------------
+
+# jq – Manipulateur JSON (pour traiter les fichiers de test)
+jq 1.8.1
+
+# yq – Manipulateur YAML (pour les fichiers de configuration)
+yq 4.44.3
+
+# ----------------------------------------------------------------------------
+# Outils pour les scripts shell (qualité de code)
+# ----------------------------------------------------------------------------
+
+# ShellCheck – Analyse statique des scripts shell
+shellcheck 0.10.0
+
+# shfmt – Formateur de scripts shell
+shfmt 3.8.0
+
+# ----------------------------------------------------------------------------
+# Note sur les outils Rust supplémentaires
+# ----------------------------------------------------------------------------
+# Les outils suivants s'installent via `cargo install` et ne sont pas gérés
+# par asdf. Ils sont recommandés mais optionnels :
+#   - cargo-deny      : cargo install cargo-deny
+#   - cargo-audit     : cargo install cargo-audit
+#   - cargo-outdated  : cargo install cargo-outdated
+#   - cargo-watch     : cargo install cargo-watch
+#   - cargo-tarpaulin : cargo install cargo-tarpaulin
+#   - cargo-llvm-cov  : cargo install cargo-llvm-cov
+#
+# Pour les installer automatiquement, voir le script scripts/setup.sh.
+# ============================================================================

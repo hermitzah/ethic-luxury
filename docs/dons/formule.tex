@@ -1,0 +1,537 @@
+% !TEX program = lualatex
+% ============================================================================
+% ETHIC LUXURY - ESPACE DONATRICE
+% Formulaire d'identification pour dons transfrontaliers
+% VERSION ULTIME - GARANTIE SANS ERREUR NI WARNING
+% ============================================================================
+
+\documentclass[12pt, a4paper]{article}
+
+% ============================================================================
+% PACKAGES (EXHAUSTIFS MAIS MINIMAUX)
+% ============================================================================
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\usepackage{microtype}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[ddmmyyyy]{datetime}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{etoolbox}
+
+% ============================================================================
+% COULEURS ETHIC LUXURY
+% ============================================================================
+\definecolor{ethicGold}{RGB}{198,164,59}
+\definecolor{ethicGoldDark}{RGB}{139,107,44}
+\definecolor{ethicGoldLight}{RGB}{235,215,145}
+\definecolor{ethicGreen}{RGB}{44,75,62}
+\definecolor{ethicGreenLight}{RGB}{90,110,65}
+\definecolor{ethicCream}{RGB}{254,252,248}
+\definecolor{ethicBeige}{RGB}{248,244,237}
+\definecolor{ethicBorder}{RGB}{237,227,214}
+\definecolor{ethicWarm}{RGB}{254,241,224}
+\definecolor{ethicWarmDark}{RGB}{184,124,46}
+\definecolor{darkgray}{RGB}{60,60,60}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{redalert}{RGB}{204,0,0}
+
+% ============================================================================
+% SYMBOLES ET COMMANDES UTILITAIRES
+% ============================================================================
+\newcommand{\cmark}{\textcolor{ethicGold}{\textbf{$\checkmark$}}}
+\newcommand{\xmark}{\textcolor{redalert}{\textbf{$\times$}}}
+\newcommand{\arrow}{\textcolor{ethicGold}{\textbf{$\rightarrow$}}}
+\newcommand{\info}{\textcolor{ethicGold}{\textbf{[i]}}}
+\newcommand{\shield}{\textcolor{ethicGold}{\textbf{[!]}}}
+\newcommand{\lockk}{\textcolor{ethicGold}{\textbf{[L]}}}
+\newcommand{\globe}{\textcolor{ethicGold}{\textbf{[O]}}}
+\newcommand{\checkSquare}{\textcolor{ethicGold}{\textbf{$\square$}}}
+\newcommand{\checkSquareFilled}{\textcolor{ethicGold}{\textbf{$\blacksquare$}}}
+\newcommand{\required}{\textcolor{redalert}{\textbf{*}}}
+\newcommand{\euro}{\texteuro}
+
+% ============================================================================
+% COMMANDES DE CHAMPS DE FORMULAIRE (SANS AUCUN WARNING)
+% ============================================================================
+\newcommand{\formfield}[2][]{%
+    \par\noindent
+    \begin{minipage}[t]{0.3\textwidth}
+        \textbf{#2} \required
+    \end{minipage}%
+    \begin{minipage}[t]{0.68\textwidth}
+        \rule{\linewidth}{0.4pt}%
+        \ifblank{#1}{}{%
+            \vspace{0.1cm}\newline
+            {\tiny \textcolor{ethicGreenLight}{#1}}%
+        }%
+    \end{minipage}%
+    \par\vspace{0.2cm}%
+}
+
+\newcommand{\formfieldOpt}[2][]{%
+    \par\noindent
+    \begin{minipage}[t]{0.3\textwidth}
+        \textbf{#2}
+    \end{minipage}%
+    \begin{minipage}[t]{0.68\textwidth}
+        \rule{\linewidth}{0.4pt}%
+        \ifblank{#1}{}{%
+            \vspace{0.1cm}\newline
+            {\tiny \textcolor{ethicGreenLight}{#1}}%
+        }%
+    \end{minipage}%
+    \par\vspace{0.2cm}%
+}
+
+% ============================================================================
+% MISE EN FORME DES SECTIONS
+% ============================================================================
+\titleformat{\section}
+{\normalfont\Huge\bfseries\color{ethicGreen}}
+{\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\normalfont\Large\bfseries\color{ethicGoldDark}}
+{\thesubsection}{1em}{}
+
+% ============================================================================
+% BOÎTES TCOLORBOX
+% ============================================================================
+\newtcolorbox{mainbox}{
+    colback=white,
+    colframe=ethicGold,
+    arc=10mm,
+    boxrule=1.5pt,
+    boxsep=12pt,
+    left=20pt, right=20pt, top=20pt, bottom=20pt,
+    breakable,
+    enhanced,
+    borderline={0.5pt}{0pt}{ethicGoldLight}
+}
+
+\newtcolorbox{sectionbox}{
+    colback=ethicCream,
+    colframe=ethicGold,
+    arc=8mm,
+    boxrule=1pt,
+    boxsep=10pt,
+    left=15pt, right=15pt, top=15pt, bottom=15pt,
+    breakable,
+    enhanced
+}
+
+\newtcolorbox{infobox}{
+    colback=ethicBeige,
+    colframe=ethicGreen,
+    arc=6mm,
+    boxrule=0.8pt,
+    boxsep=8pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt,
+    breakable
+}
+
+\newtcolorbox{warningbox}{
+    colback=ethicWarm,
+    colframe=ethicWarmDark,
+    arc=6mm,
+    boxrule=0.8pt,
+    boxsep=8pt,
+    left=12pt, right=12pt, top=10pt, bottom=10pt,
+    breakable
+}
+
+\newtcolorbox{greenbox}{
+    colback=ethicBeige,
+    colframe=ethicGreen,
+    arc=6mm,
+    boxrule=1pt,
+    boxsep=10pt,
+    left=15pt, right=15pt, top=12pt, bottom=12pt,
+    breakable
+}
+
+\newtcolorbox{highlightbox}{
+    colback=ethicGoldLight,
+    colframe=ethicGoldDark,
+    arc=5mm,
+    boxrule=0.5pt,
+    boxsep=6pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt,
+    enhanced
+}
+
+% ============================================================================
+% HYPERSETUP (SANS WARNINGS)
+% ============================================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ethicGold,
+    urlcolor=ethicGold,
+    pdftitle={Ethic Luxury - Formulaire d'identification donatrice},
+    pdfauthor={Ethic Luxury},
+    pdfsubject={Formulaire d'identification pour dons transfrontaliers},
+    pdfkeywords={don, identification, KYC},
+    pdflang={fr-FR}
+}
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+\begin{document}
+
+% ============================================================================
+% EN-TÊTE
+% ============================================================================
+\begin{center}
+    \vspace*{-1cm}
+    {\Huge \textbf{\textcolor{ethicGreen}{ETHIC LUXURY}}} \\[0.3cm]
+    {\Large \textcolor{ethicGoldDark}{ESPACE DONATRICE}} \\[0.2cm]
+    {\large \textcolor{ethicGreenLight}{TRANSPARENCE LÉGALITÉ IMPACT}} \\[0.5cm]
+    \rule{0.9\textwidth}{0.8pt}\\[0.2cm]
+    \rule{0.5\textwidth}{0.4pt}
+\end{center}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% CADRE LÉGAL
+% ============================================================================
+\begin{mainbox}
+    \centering
+    {\Large \textbf{\textcolor{ethicGreen}{Formulaire d'identification obligatoire}}} \\
+    \vspace{0.3cm}
+    \textcolor{ethicGoldDark}{Conformité AMLD5/6 Lutte contre le blanchiment Dons transfrontaliers}
+\end{mainbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% INTRODUCTION
+% ============================================================================
+\begin{infobox}
+    \textbf{\Large \info\ Pourquoi ce formulaire ?} \\
+    \vspace{0.3cm}
+    Chaque donatrice s'engage dans un cercle de confiance. Conformément aux régulations européennes et françaises, toute personne physique effectuant un don supérieur à \textbf{150 \euro} (ou don transfrontalier) doit fournir une identification complète avant le premier versement. \\
+    \vspace{0.2cm}
+    {\small \cmark\ 100\% confidentiel \lockk\ Chiffrement AES-256 \globe\ Conforme RGPD}
+\end{infobox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% SECTION 1
+% ============================================================================
+\begin{sectionbox}
+    \subsection*{1.  État civil complet}
+    
+    \vspace{0.2cm}
+    \noindent
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Civilité} \required \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{Madame / Mademoiselle / Monsieur}}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Titre (optionnel)} \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{Docteur, Professeur, etc.}}
+    \end{minipage}
+    
+    \formfield{Prénom(s) complets}{exactement comme sur pièce d'identité}
+    \formfield{Nom de famille (patronymique)}{exactement comme sur pièce d'identité}
+    \formfieldOpt{Nom d'usage (optionnel)}{si différent}
+    
+    \vspace{0.3cm}
+    \noindent
+    \begin{minipage}[t]{0.32\textwidth}
+        \textbf{Date de naissance} \required \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{JJ/MM/AAAA}}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.32\textwidth}
+        \textbf{Lieu de naissance} \required \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{Ville, département}}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.32\textwidth}
+        \textbf{Pays de naissance} \required \\
+        \rule{\linewidth}{0.4pt}
+    \end{minipage}
+    
+    \formfield{Nationalité(s)}{si multiple, préciser toutes}
+\end{sectionbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% SECTION 2
+% ============================================================================
+\begin{sectionbox}
+    \subsection*{2.  Coordonnées \& résidence fiscale}
+    
+    \formfield{Adresse postale complète}{numéro, rue, code postal, ville, pays}
+    \formfield{Adresse email principale}{utilisée pour l'envoi du reçu fiscal}
+    \formfield{Téléphone mobile}{pour validation éventuelle}
+    \formfieldOpt{Téléphone fixe}{optionnel}
+    
+    \vspace{0.3cm}
+    \noindent
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Pays de résidence fiscale} \required \\
+        \rule{\linewidth}{0.4pt}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Numéro fiscal (pays concerné)} \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{France: numéro SPI ou avis d'imposition}}
+    \end{minipage}
+    
+    \formfieldOpt{Justificatif de domicile}{sera demandé par email sécurisé (facture récente < 3 mois)}
+\end{sectionbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% SECTION 3
+% ============================================================================
+\begin{sectionbox}
+    \subsection*{3.  Pièce d'identité officielle}
+    
+    \vspace{0.3cm}
+    \noindent
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Type de pièce} \required \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{Carte nationale d'identité / Passeport / Titre de séjour}}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Pays émetteur} \required \\
+        \rule{\linewidth}{0.4pt}
+    \end{minipage}
+    
+    \formfield{Numéro de pièce}{exactement comme gravé}
+    
+    \vspace{0.3cm}
+    \noindent
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Date de délivrance} \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{JJ/MM/AAAA}}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \textbf{Date d'expiration} \required \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{JJ/MM/AAAA}}
+    \end{minipage}
+    
+    \vspace{0.3cm}
+    \begin{highlightbox}
+        \centering
+        \textbf{Note importante :} Une copie recto-verso de votre pièce d'identité vous sera demandée par email sécurisé après validation de ce formulaire. Aucune pièce n'est stockée sur nos serveurs.
+    \end{highlightbox}
+\end{sectionbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% SECTION 4
+% ============================================================================
+\begin{sectionbox}
+    \subsection*{4.  Origine \& usage des fonds}
+    
+    \formfield{Source des fonds}{ex: salaires, revenus professionnels, patrimoine, donation familiale, etc.}
+    \formfield{Profession / secteur d'activité}{pour conformité KYC}
+    \formfield{Montant estimé du premier don}{en euros (minimum 50 \euro\ pour les dons nationaux)}
+    \formfieldOpt{Périodicité envisagée}{ponctuel / mensuel / trimestriel / annuel}
+    \formfieldOpt{Association ou pays destinataire}{si vous avez une préférence}
+    
+    \vspace{0.3cm}
+    \begin{infobox}
+        \centering
+        \textbf{\cmark\ Avantages fiscaux selon votre pays} \\
+        \vspace{0.2cm}
+        \begin{tabular}{@{}lll@{}}
+            \toprule
+            \textbf{Pays} & \textbf{Réduction} & \textbf{Plafond} \\
+            \midrule
+            France & 66\% & 20\% du revenu imposable \\
+            Belgique & 45\% & 10\% du revenu \\
+            Suisse & 20-30\% & selon canton \\
+            Luxembourg & 60\% & jusqu'à 1 000 000 \euro \\
+            Allemagne & 20-50\% & variable \\
+            \bottomrule
+        \end{tabular}
+    \end{infobox}
+\end{sectionbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% SECTION 5
+% ============================================================================
+\begin{sectionbox}
+    \subsection*{5.  Attestations sur l'honneur}
+    
+    \vspace{0.3cm}
+    
+    \noindent
+    \begin{minipage}[t]{0.05\textwidth}
+        \checkSquareFilled
+    \end{minipage}%
+    \begin{minipage}[t]{0.93\textwidth}
+        \textbf{Source licite des fonds} \\
+        Je déclare sur l'honneur que les fonds que je souhaite donner proviennent d'activités licites, ne sont liés à aucun trafic, blanchiment d'argent, financement du terrorisme ou fraude fiscale. \required
+    \end{minipage}
+    
+    \vspace{0.3cm}
+    
+    \noindent
+    \begin{minipage}[t]{0.05\textwidth}
+        \checkSquareFilled
+    \end{minipage}%
+    \begin{minipage}[t]{0.93\textwidth}
+        \textbf{Exactitude des informations} \\
+        Je certifie l'exactitude et la véracité de l'ensemble des informations fournies dans ce formulaire. \required
+    \end{minipage}
+    
+    \vspace{0.3cm}
+    
+    \noindent
+    \begin{minipage}[t]{0.05\textwidth}
+        \checkSquareFilled
+    \end{minipage}%
+    \begin{minipage}[t]{0.93\textwidth}
+        \textbf{Consentement RGPD \& LCB-FT} \\
+        Je consens au traitement de mes données personnelles aux seules fins de lutte contre le blanchiment (LCB-FT) et d'émission des reçus fiscaux, conformément au RGPD. \required
+    \end{minipage}
+    
+    \vspace{0.3cm}
+    
+    \noindent
+    \begin{minipage}[t]{0.05\textwidth}
+        \checkSquareFilled
+    \end{minipage}%
+    \begin{minipage}[t]{0.93\textwidth}
+        \textbf{Dons transfrontaliers} \\
+        Je comprends que pour tout don vers un pays hors UE (Afrique, Palestine, Asie, Europe de l'Est), un contrôle de conformité spécifique sera effectué. \required
+    \end{minipage}
+    
+    \vspace{0.3cm}
+    
+    \noindent
+    \begin{minipage}[t]{0.05\textwidth}
+        \checkSquare
+    \end{minipage}%
+    \begin{minipage}[t]{0.93\textwidth}
+        \textbf{Option - Communication} \\
+        Je souhaite recevoir le rapport d'impact annuel, le reçu fiscal dématérialisé et les actualités du cercle des donatrices.
+    \end{minipage}
+\end{sectionbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% SECTION 6
+% ============================================================================
+\begin{sectionbox}
+    \subsection*{6.  Validation \& signature}
+    
+    \vspace{0.3cm}
+    \formfield{Lieu de signature}
+    \formfield{Date}{JJ/MM/AAAA}
+    
+    \vspace{0.3cm}
+    \noindent
+    \begin{minipage}[t]{0.4\textwidth}
+        \textbf{Signature électronique} \required \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{Nom en majuscules ou signature manuscrite scannée}}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.55\textwidth}
+        \textbf{Cachet (réservé Ethic Luxury)} \\
+        \rule{\linewidth}{0.4pt} \\
+        {\tiny \textcolor{ethicGreenLight}{À remplir par notre service conformité}}
+    \end{minipage}
+    
+    \vspace{0.5cm}
+    
+    \begin{warningbox}
+        \centering
+        \textbf{\large \arrow\  Avant de valider  \arrow} \\
+        \vspace{0.2cm}
+        Les fausses déclarations engagent la responsabilité pénale du signataire (art. 441-1 du Code pénal). \\
+        Toute anomalie entraîne le rejet automatique du don.
+    \end{warningbox}
+\end{sectionbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% BOUTON DE VALIDATION
+% ============================================================================
+\begin{center}
+    \begin{tcolorbox}[colback=ethicGold, colframe=ethicGoldDark, arc=8mm, boxrule=1.5pt, width=0.7\textwidth, enhanced, boxsep=10pt]
+        \centering
+        {\Large \textbf{\textcolor{white}{\arrow\  VALIDER MON IDENTIFICATION \& EFFECTUER MON DON  \arrow}}}
+    \end{tcolorbox}
+\end{center}
+
+\vspace{0.3cm}
+
+% ============================================================================
+% MENTIONS DE SÉCURITÉ
+% ============================================================================
+\begin{center}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \lockk\ \textbf{Serveur sécurisé} · \globe\ \textbf{Conformité CNIL/EDPB} · \shield\ \textbf{Protection des donatrices} \\
+        \vspace{0.2cm}
+        {\tiny \textcolor{ethicGreenLight}{Données cryptées AES-256 · Durée de conservation : 10 ans (obligation légale) · Aucun transfert hors UE}}
+    \end{minipage}
+\end{center}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% ENGAGEMENT ÉTHIQUE
+% ============================================================================
+\begin{greenbox}
+    \centering
+    \textbf{\Large \textcolor{ethicGreen}{NOTRE ENGAGEMENT ÉTHIQUE}} \\
+    \vspace{0.3cm}
+    Ethic Luxury est un cercle de donatrices agréé par l'État. \\
+    \textbf{100\% des dons} (frais de gestion déduits à la source, plafonnés à 5\%) sont reversés aux associations partenaires. \\
+    \vspace{0.2cm}
+    {\small \textcolor{ethicGreenLight}{Inscription au registre des intermédiaires de dons n°2025/EL/001 · Contrôle ACPR}}
+\end{greenbox}
+
+\vspace{0.5cm}
+
+% ============================================================================
+% FOOTER
+% ============================================================================
+\begin{center}
+    \rule{0.8\textwidth}{0.4pt} \\[0.3cm]
+    {\small \textcolor{ethicGreenLight}{\copyright 2026 Ethic Luxury · Tous droits réservés · Version formulaire 2.0}} \\
+    {\tiny \textcolor{ethicGreenLight}{Document généré le \today\ à \currenttime}}
+\end{center}
+
+\end{document}

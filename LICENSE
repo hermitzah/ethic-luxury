@@ -1,0 +1,162 @@
+Decentralized Wakf Public License (DWPL) v2.0 – Spécialisée Charia Islamique
+
+Copyright (c) 2026 AbdElHakim ZOUAÏ <abdelhakimzouai@gmail.com>
+
+Tous droits réservés.
+
+-------------------------------------------------------------------------------
+PRÉAMBULE
+-------------------------------------------------------------------------------
+
+La Decentralized Wakf Public License (DWPL) s’inspire des principes du Wakf
+(islamique) et de la décentralisation pour offrir un cadre juridique unique.
+
+Tout comme un Wakf est un bien immobilisé dont les fruits sont dédiés au bien
+commun et à des causes vertueuses, ce logiciel est mis à disposition de la
+communauté sous réserve que son usage reste perpétuellement conforme aux
+préceptes éthiques de l’Islam et qu’il serve l’intérêt général.
+
+L’esprit de décentralisation garantit que les utilisateurs conservent leur
+souveraineté sur leurs données et leurs transactions, tout en respectant les
+interdits fondamentaux de la Charia. Cette licence vise à protéger le logiciel
+contre les usages spéculatifs, usuraires ou contraires à la dignité humaine,
+tout en favorisant son appropriation par les acteurs de la finance
+participative et de la blockchain éthique.
+
+-------------------------------------------------------------------------------
+DÉFINITIONS
+-------------------------------------------------------------------------------
+
+- « Logiciel » : ensemble des fichiers sources, binaires, documentation et
+  ressources associées, fournis sous la présente licence.
+
+- « Auteur » : AbdElHakim ZOUAÏ, personne physique détentrice des droits
+  d’auteur originaux sur le Logiciel.
+
+- « Utilisation commerciale » : toute exploitation du Logiciel dans le cadre
+  d’une activité lucrative, y compris, sans s’y limiter, la vente, la location,
+  l’intégration dans un produit payant, ou la fourniture de services
+  rémunérés basés sur le Logiciel.
+
+- « Charia » : l’ensemble des préceptes religieux islamiques fondés sur le
+  Coran et la Sunna, selon les interprétations des écoles juridiques
+  reconnues (malékite, hanafite, chaféite, hanbalite).
+
+-------------------------------------------------------------------------------
+CONDITIONS D’UTILISATION, DE MODIFICATION ET DE DISTRIBUTION
+-------------------------------------------------------------------------------
+
+1. Vous êtes autorisé à utiliser, copier, modifier, fusionner, publier,
+   distribuer, sous-licencier et/ou vendre des copies du Logiciel, à condition
+   de respecter l’intégralité des conditions énoncées ci-dessous.
+
+2. Vous devez conserver intacts tous les avis de copyright, cette liste de
+   conditions et la clause de non‑garantie dans toutes les copies ou parties
+   substantielles du Logiciel.
+
+3. Toute modification du Logiciel doit être clairement identifiée comme telle,
+   et vous devez mentionner votre nom en tant que contributeur, sans laisser
+   supposer que l’Auteur approuve vos modifications.
+
+-------------------------------------------------------------------------------
+RESTRICTIONS SPÉCIFIQUES – CONFORMITÉ À LA CHARIA
+-------------------------------------------------------------------------------
+
+Le Logiciel ne peut en aucun cas être utilisé, directement ou indirectement,
+pour faciliter, promouvoir ou participer à des activités contraires à la
+Charia islamique, notamment :
+
+- **Riba** : tout mécanisme garantissant un taux d’intérêt fixe ou un profit
+  certain sans risque réel, à l’exclusion des majorations transparentes dans
+  les contrats Murabaha adossés à des actifs tangibles.
+
+- **Gharar** : toute transaction comportant une incertitude excessive sur
+  l’objet, le prix ou la date de livraison, rendant le contrat aléatoire.
+
+- **Maysir** : toute opération purement spéculative ou assimilable à un jeu
+  de hasard, où le gain dépend uniquement du hasard et non d’un effort ou
+  d’un actif réel.
+
+- **Secteurs Haram** : toute activité liée à l’alcool, au porc, aux jeux
+  d’argent, à la pornographie, à la musique commerciale illicite, ou à tout
+  autre secteur prohibé par la Charia.
+
+- **Blanchiment d’argent et financement du terrorisme** : toute utilisation
+  du Logiciel à des fins illégales au regard du droit international.
+
+Toute violation avérée de l’une de ces restrictions entraîne la résiliation
+automatique et immédiate de la présente licence.
+
+-------------------------------------------------------------------------------
+UTILISATION COMMERCIALE ET LICENCES EXCLUSIVES
+-------------------------------------------------------------------------------
+
+Toute utilisation commerciale du Logiciel (y compris dans un produit
+closed-source, une solution SaaS, un service en ligne, ou toute autre forme
+d’exploitation lucrative) nécessite une **autorisation écrite préalable** de
+l’Auteur.
+
+L’Auteur se réserve le droit d’accorder des licences commerciales distinctes,
+moyennant éventuellement une redevance ou d’autres conditions négociées au
+cas par cas. Une partie des redevances pourra être reversée à des œuvres
+caritatives (Wakf) conformément à l’esprit de la présente licence.
+
+Pour toute demande, veuillez contacter l’Auteur à l’adresse suivante :
+**abdelhakimzouai@gmail.com**
+
+-------------------------------------------------------------------------------
+INTÉGRITÉ DE L’AUTEUR
+-------------------------------------------------------------------------------
+
+Vous ne pouvez pas utiliser le nom « Islamic Shariah Validator », le nom de
+l’Auteur, ou les marques associées pour promouvoir des versions modifiées du
+Logiciel sans l’accord explicite et écrit de l’Auteur.
+
+-------------------------------------------------------------------------------
+CLAUSE DE NON-GARANTIE
+-------------------------------------------------------------------------------
+
+LE LOGICIEL EST FOURNI « TEL QUEL », SANS GARANTIE D'AUCUNE SORTE, EXPLICITE
+OU IMPLICITE, Y COMPRIS, MAIS SANS S'Y LIMITER, LES GARANTIES DE QUALITÉ
+MARCHANDE, D'ADÉQUATION À UN USAGE PARTICULIER ET D'ABSENCE DE CONTREFAÇON.
+
+EN AUCUN CAS L'AUTEUR OU LES TITULAIRES DU DROIT D'AUTEUR NE POURRONT ÊTRE
+TENUS RESPONSABLES DE TOUTE RÉCLAMATION, DOMMAGE OU AUTRE RESPONSABILITÉ,
+QUE CE SOIT DANS LE CADRE D'UN CONTRAT, D'UN DÉLIT OU AUTRE, DÉCOULANT DE,
+OU EN LIEN AVEC LE LOGICIEL OU L'UTILISATION OU D'AUTRES OPÉRATIONS SUR LE
+LOGICIEL.
+
+-------------------------------------------------------------------------------
+DURÉE ET RÉSILIATION
+-------------------------------------------------------------------------------
+
+La présente licence est accordée pour une durée illimitée. Elle prend fin
+automatiquement en cas de non-respect de l’une de ses clauses.
+
+En cas de résiliation, vous devez immédiatement cesser toute utilisation du
+Logiciel et détruire toutes les copies (y compris les versions modifiées) en
+votre possession.
+
+-------------------------------------------------------------------------------
+LOI APPLICABLE ET JURIDICTION
+-------------------------------------------------------------------------------
+
+La présente licence est régie et interprétée conformément au droit français,
+à l’exclusion de ses règles de conflit de lois.
+
+Tout litige relatif à la présente licence sera soumis à la compétence
+exclusive des tribunaux de Paris (France).
+
+-------------------------------------------------------------------------------
+CONTACT
+-------------------------------------------------------------------------------
+
+Pour toute question concernant cette licence, pour solliciter une autorisation
+commerciale, ou pour signaler une utilisation abusive, veuillez contacter :
+
+AbdElHakim ZOUAÏ
+Email : abdelhakimzouai@gmail.com
+
+-------------------------------------------------------------------------------
+FIN DE LA LICENCE
+-------------------------------------------------------------------------------

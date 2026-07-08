@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethic Luxury · Espace Donatrice · Identification requise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fefcf8 0%, #f8f4ed 100%);
+            color: #1e2a2e;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding: 1rem 0 2rem;
+            border-bottom: 1px solid #eee6dc;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #c6a43b, #8b6b2c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo p {
+            font-size: 0.75rem;
+            color: #a68b5c;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c4b3e;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #c6a43b;
+        }
+
+        /* Layout principal */
+        .donor-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        /* Côté gauche - infos légales */
+        .legal-info {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #ede3d6;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .legal-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #2c4b3e;
+            margin-bottom: 1rem;
+        }
+
+        .requirement-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .requirement-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0eae2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .requirement-list li i {
+            color: #c6a43b;
+            width: 24px;
+            font-size: 1.1rem;
+        }
+
+        .badge-obligatoire {
+            background: #fef1e0;
+            color: #b87c2e;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #f8f4ed;
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #c6a43b;
+        }
+
+        /* Formulaire */
+        .form-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #ede3d6;
+        }
+
+        .form-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #2c4b3e;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c4b3e;
+        }
+
+        .required-star {
+            color: #c6a43b;
+            margin-left: 3px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1.5px solid #e2d6ca;
+            border-radius: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            background: #fefcf8;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #c6a43b;
+            box-shadow: 0 0 0 3px rgba(198, 164, 59, 0.1);
+        }
+
+        .double-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 1rem 0;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-submit {
+            background: #2c4b3e;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: #c6a43b;
+            transform: translateY(-2px);
+        }
+
+        .security-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #8f9e93;
+        }
+
+        hr {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 1px solid #ede3d6;
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid #e0d6ca;
+            padding-top: 2rem;
+            font-size: 0.8rem;
+            color: #8f9e93;
+        }
+
+        @media (max-width: 900px) {
+            .donor-layout {
+                grid-template-columns: 1fr;
+            }
+            .legal-info {
+                position: static;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>ETHIC LUXURY</h1>
+            <p>ESPACE DONATRICE · TRANSPARENCE TOTALE</p>
+        </div>
+        <div class="nav-links">
+            <a href="#">Boutique</a>
+            <a href="#">Notre impact</a>
+            <a href="#">Dons</a>
+            <a href="#" style="color: #c6a43b;">Mon espace donatrice</a>
+        </div>
+    </nav>
+
+    <div class="donor-layout">
+        <!-- Colonne gauche : exigences légales -->
+        <div class="legal-info">
+            <h2><i class="fas fa-shield-alt" style="color: #c6a43b;"></i> Exigences légales d'identification</h2>
+            <p style="margin-bottom: 1rem; color: #5a6e5f;">Conformément au <strong>règlement européen anti-blanchiment (AMLD5/6)</strong> et à la législation fiscale française, tout don supérieur à 150 € nécessite une identification complète.</p>
+            
+            <ul class="requirement-list">
+                <li><i class="fas fa-id-card"></i> Pièce d'identité officielle <span class="badge-obligatoire">obligatoire</span></li>
+                <li><i class="fas fa-home"></i> Justificatif de domicile <span class="badge-obligatoire">moins de 3 mois</span></li>
+                <li><i class="fas fa-passport"></i> Nationalité & pays de résidence fiscale</li>
+                <li><i class="fas fa-euro-sign"></i> Source des fonds (déclaration sur l'honneur)</li>
+                <li><i class="fas fa-file-signature"></i> Acceptation des conditions de don transfrontalier</li>
+            </ul>
+
+            <div class="info-box">
+                <i class="fas fa-gavel" style="float: right; color: #c6a43b; font-size: 1.8rem;"></i>
+                <strong>🛡️ Pourquoi ces informations ?</strong><br>
+                Nous respectons les obligations européennes de <strong>due diligence</strong> pour les dons internationaux (Afrique, Palestine, Asie, Europe de l'Est). Vos données sont cryptées et jamais partagées.
+            </div>
+
+            <div class="info-box" style="background: #eef5f0;">
+                <i class="fas fa-receipt"></i> <strong>Avantages de l'identification validée :</strong>
+                <ul style="margin-top: 8px; margin-left: 20px;">
+                    <li>✅ Réduction fiscale jusqu'à 66% (France) / selon pays</li>
+                    <li>✅ Reçu officiel sous 48h</li>
+                    <li>✅ Accès au tableau de bord "impact personnalisé"</li>
+                    <li>✅ Suivi des dons vers les associations (Afrique, Palestine...)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Colonne droite : Formulaire d'identification -->
+        <div class="form-card">
+            <h2>Identifiez-vous pour donner</h2>
+            <p style="color: #7a8f82; margin-bottom: 1.5rem;">Tous les champs marqués <span style="color:#c6a43b;">*</span> sont requis par la loi.</p>
+
+            <form id="donorForm">
+                <!-- Identité -->
+                <div class="double-group">
+                    <div class="form-group">
+                        <label>Prénom(s) <span class="required-star">*</span></label>
+                        <input type="text" required placeholder="Prénom officiel">
+                    </div>
+                    <div class="form-group">
+                        <label>Nom de famille <span class="required-star">*</span></label>
+                        <input type="text" required placeholder="Nom légal">
+                    </div>
+                </div>
+
+                <div class="double-group">
+                    <div class="form-group">
+                        <label>Date de naissance <span class="required-star">*</span></label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lieu de naissance <span class="required-star">*</span></label>
+                        <input type="text" required placeholder="Ville, pays">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nationalité <span class="required-star">*</span></label>
+                    <select required>
+                        <option value="">Sélectionnez</option>
+                        <option>Française</option>
+                        <option>Belge</option>
+                        <option>Suisse</option>
+                        <option>Luxembourgeoise</option>
+                        <option>Allemande</option>
+                        <option>Autre (UE)</option>
+                        <option>Autre (hors UE)</option>
+                    </select>
+                </div>
+
+                <div class="double-group">
+                    <div class="form-group">
+                        <label>Pays de résidence fiscale <span class="required-star">*</span></label>
+                        <select required>
+                            <option>France</option>
+                            <option>Belgique</option>
+                            <option>Suisse</option>
+                            <option>Luxembourg</option>
+                            <option>Allemagne</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Numéro fiscal (optionnel)</label>
+                        <input type="text" placeholder="Ex: FR XX 12345">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Adresse postale complète <span class="required-star">*</span></label>
+                    <input type="text" required placeholder="Numéro, rue, code postal, ville">
+                </div>
+
+                <div class="double-group">
+                    <div class="form-group">
+                        <label>Email <span class="required-star">*</span></label>
+                        <input type="email" required placeholder="pour le reçu fiscal">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone <span class="required-star">*</span></label>
+                        <input type="tel" required placeholder="+33 ...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Type de pièce d'identité <span class="required-star">*</span></label>
+                    <select required>
+                        <option>Carte nationale d'identité</option>
+                        <option>Passeport</option>
+                        <option>Titre de séjour</option>
+                        <option>Permis de conduire (France)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Numéro de pièce d'identité <span class="required-star">*</span></label>
+                    <input type="text" required placeholder="Ex: 12AB34567">
+                </div>
+
+                <!-- Source des fonds -->
+                <div class="form-group">
+                    <label>Source des fonds utilisés pour le don <span class="required-star">*</span></label>
+                    <select required>
+                        <option>Revenus professionnels</option>
+                        <option>Épargne personnelle</option>
+                        <option>Succession / donation</option>
+                        <option>Revenus financiers</option>
+                        <option>Activité indépendante</option>
+                        <option>Autre (précisez ci-dessous)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Montant estimé du don (premier versement) <span class="required-star">*</span></label>
+                    <input type="number" step="10" min="1" required placeholder="Ex: 250">
+                </div>
+
+                <div class="form-group">
+                    <label>Association / pays destinataire souhaité</label>
+                    <select>
+                        <option>Afrique (Sénégal, Kenya, RDC)</option>
+                        <option>Palestine (Gaza, Cisjordanie)</option>
+                        <option>Europe de l'Est (Ukraine, Roumanie)</option>
+                        <option>Asie (Népal, Cambodge)</option>
+                        <option>Non spécifié – Ethic Luxury choisit l'impact maximal</option>
+                    </select>
+                </div>
+
+                <!-- Cases légales -->
+                <div class="checkbox-group">
+                    <input type="checkbox" required>
+                    <label style="font-weight: normal;">J'atteste sur l'honneur que les fonds proviennent d'une source licite et ne sont liés à aucune activité illégale ou de blanchiment.<span class="required-star">*</span></label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" required>
+                    <label style="font-weight: normal;">J'accepte que mes données soient traitées conformément au RGPD et à la réglementation LCB-FT (Lutte contre le blanchiment).<span class="required-star">*</span></label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" required>
+                    <label style="font-weight: normal;">Je comprends que pour les dons > 150 €, une copie de ma pièce d'identité me sera demandée par email sécurisé.<span class="required-star">*</span></label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox">
+                    <label style="font-weight: normal;">Je souhaite recevoir le rapport d'impact annuel et le reçu fiscal.</label>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-arrow-right"></i> Valider mon identification & donner
+                </button>
+
+                <div class="security-note">
+                    <i class="fas fa-lock"></i> Serveur sécurisé · Conformité CNIL/EDPB · Données cryptées AES-256
+                </div>
+            </form>
+
+            <hr>
+
+            <div style="font-size: 0.8rem; color: #8f9e93; text-align: center;">
+                <i class="fas fa-globe"></i> Dons transfrontaliers vers Afrique, Palestine, Europe de l'Est et Asie · Conformité avec les régimes de sanctions européennes et ONU.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Ethic Luxury · Boutique éthique & cercle de donatrices agréé · <a href="#" style="color:#8b6b2c;">Mentions légales</a> | <a href="#" style="color:#8b6b2c;">Politique de confidentialité</a></p>
+        <p style="margin-top: 0.5rem;">Ethic Luxury est inscrit au registre des intermédiaires de dons (n°2025/EL/001) · Contrôle de l'ACPR pour les dons transfrontaliers.</p>
+    </footer>
+</div>
+
+<script>
+    document.getElementById('donorForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Simulation d'envoi (dans la réalité, envoi vers backend sécurisé)
+        alert('✅ Demande d’identification enregistrée.\n\nUn email de vérification contenant un lien sécurisé vous sera envoyé sous 24h pour finaliser la copie de votre pièce d’identité.\n\nMerci pour votre générosité en toute conformité.');
+        // Optionnel : redirection
+        // window.location.href = 'merci-don.html';
+    });
+</script>
+</body>
+</html>
