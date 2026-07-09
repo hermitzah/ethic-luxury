@@ -1,0 +1,14 @@
+{
+  "ambiguous_clauses": [],
+  "asset_id": "real_estate_001",
+  "collateral_amount": 50000,
+  "contract_type": "Mudarabah",
+  "expected_profit_rate": null,
+  "industry": "Halal",
+  "investor_profit_share": 0.7,
+  "is_fixed_term": true,
+  "manager_profit_share": 0.3,
+  "maturity_timestamp": 1700000000,
+  "principal_amount": 100000,
+  "signing_timestamp": 1600000000
+}
